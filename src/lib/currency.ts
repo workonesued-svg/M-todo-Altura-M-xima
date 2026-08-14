@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { HOTMART_LOCALIZED_PRICES, type PlanId } from "./hotmart-prices";
+
+export type { PlanId } from "./hotmart-prices";
 
 type CurrencyInfo = { code: string; locale: string };
 
@@ -45,6 +48,8 @@ const TZ_COUNTRY: Record<string, string> = {
 };
 
 // Tasas de respaldo aproximadas (se sobrescriben con tasas en vivo).
+// Solo se usan como ÚLTIMO recurso, cuando el país no tiene un precio real
+// de Hotmart configurado en hotmart-prices.ts.
 const FALLBACK_RATES: Record<string, number> = {
   COP: 4000,
   MXN: 18,
@@ -61,47 +66,132 @@ const FALLBACK_RATES: Record<string, number> = {
   EUR: 0.92,
 };
 
-function detectCurrency(): CurrencyInfo | null {
+// Monedas que se muestran sin decimales (ni en el valor real ni en el aproximado).
+const ZERO_DECIMAL_CURRENCIES = ["COP", "CLP", "PYG", "ARS", "CRC"];
+
+// Precio base en USD por plan — única fuente de verdad para el valor "oficial".
+const PLAN_BASE_USD: Record<PlanId, { now: number; before: number }> = {
+  essential: { now: 7, before: 67 },
+  pro: { now: 17, before: 117 },
+};
+
+function detectCountry(): string | null {
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const byTz = tz ? TZ_COUNTRY[tz] : undefined;
-    if (byTz) return COUNTRY_CURRENCY[byTz]!;
+    if (byTz) return byTz;
     const lang = navigator.language || "";
     const region = lang.split("-")[1]?.toUpperCase();
-    if (region && COUNTRY_CURRENCY[region]) return COUNTRY_CURRENCY[region]!;
+    if (region && COUNTRY_CURRENCY[region]) return region;
   } catch {
     /* noop */
   }
   return null;
 }
 
-function roundLocal(value: number, code: string) {
-  if (["COP", "CLP", "PYG", "ARS", "CRC"].includes(code)) {
+function roundApprox(value: number, code: string) {
+  if (ZERO_DECIMAL_CURRENCIES.includes(code)) {
     return Math.round(value / 100) * 100;
   }
   return Math.round(value);
 }
 
-export type PriceFormatter = {
-  format: (usd: number) => string;
+// Formatea un valor EXACTO (precio real de Hotmart, o su "antes" proporcional).
+function formatExact(value: number, code: string, locale: string) {
+  const fractionDigits = ZERO_DECIMAL_CURRENCIES.includes(code) ? 0 : 2;
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: code,
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
+  }).format(value);
+}
+
+// Formatea un valor APROXIMADO (conversión por tasa de cambio, sin precio real configurado).
+function formatApprox(value: number, code: string, locale: string) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: code,
+    maximumFractionDigits: 0,
+  }).format(roundApprox(value, code));
+}
+
+export type PlanPriceView = {
+  now: string;
+  before: string;
+  /** true = conversión por tasa de cambio (no es el precio real del checkout). */
+  isApproximate: boolean;
+};
+
+export type PriceInfo = {
+  essential: PlanPriceView;
+  pro: PlanPriceView;
+  /** true = se está mostrando en una moneda local (exacta o aproximada), no en USD. */
   isLocal: boolean;
 };
 
-export function useLocalPrice(): PriceFormatter {
-  const [info, setInfo] = useState<CurrencyInfo | null>(null);
+function usdView(plan: PlanId): PlanPriceView {
+  const base = PLAN_BASE_USD[plan];
+  return { now: `US$ ${base.now}`, before: `US$ ${base.before}`, isApproximate: false };
+}
+
+const USD_FALLBACK: PriceInfo = {
+  essential: usdView("essential"),
+  pro: usdView("pro"),
+  isLocal: false,
+};
+
+function buildPriceInfo(country: string, rate: number | null): PriceInfo {
+  const currencyInfo = COUNTRY_CURRENCY[country];
+  const realPrices = HOTMART_LOCALIZED_PRICES[country];
+  const plans: PlanId[] = ["essential", "pro"];
+  const result = {} as Record<PlanId, PlanPriceView>;
+
+  for (const plan of plans) {
+    const base = PLAN_BASE_USD[plan];
+    const realNow = realPrices?.[plan];
+
+    if (typeof realNow === "number") {
+      // Precio real confirmado del checkout de Hotmart: se muestra tal cual,
+      // sin aplicar ninguna conversión encima.
+      const ratio = realNow / base.now;
+      const before = base.before * ratio;
+      result[plan] = {
+        now: formatExact(realNow, currencyInfo.code, currencyInfo.locale),
+        before: formatExact(before, currencyInfo.code, currencyInfo.locale),
+        isApproximate: false,
+      };
+    } else if (rate) {
+      // Sin precio real configurado todavía: conversión aproximada como respaldo.
+      result[plan] = {
+        now: formatApprox(base.now * rate, currencyInfo.code, currencyInfo.locale),
+        before: formatApprox(base.before * rate, currencyInfo.code, currencyInfo.locale),
+        isApproximate: true,
+      };
+    } else {
+      result[plan] = usdView(plan);
+    }
+  }
+
+  return { essential: result.essential, pro: result.pro, isLocal: true };
+}
+
+export function useLocalPrice(): PriceInfo {
+  const [country, setCountry] = useState<string | null>(null);
   const [rate, setRate] = useState<number | null>(null);
 
   useEffect(() => {
-    const detected = detectCurrency();
+    const detected = detectCountry();
     if (!detected) return;
-    setInfo(detected);
-    setRate(FALLBACK_RATES[detected.code] ?? null);
+    setCountry(detected);
+    const currencyInfo = COUNTRY_CURRENCY[detected];
+    setRate(FALLBACK_RATES[currencyInfo.code] ?? null);
 
     let alive = true;
     fetch("https://open.er-api.com/v6/latest/USD")
       .then((r) => r.json())
       .then((d: { rates?: Record<string, number> }) => {
-        const live = d?.rates?.[detected.code];
+        const live = d?.rates?.[currencyInfo.code];
         if (alive && typeof live === "number" && live > 0) setRate(live);
       })
       .catch(() => {
@@ -112,17 +202,6 @@ export function useLocalPrice(): PriceFormatter {
     };
   }, []);
 
-  if (!info || !rate) {
-    return { format: (usd) => `US$ ${usd}`, isLocal: false };
-  }
-
-  return {
-    isLocal: true,
-    format: (usd) =>
-      new Intl.NumberFormat(info.locale, {
-        style: "currency",
-        currency: info.code,
-        maximumFractionDigits: 0,
-      }).format(roundLocal(usd * rate, info.code)),
-  };
+  if (!country) return USD_FALLBACK;
+  return buildPriceInfo(country, rate);
 }

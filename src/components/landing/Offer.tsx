@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Check, Crown, Timer } from "lucide-react";
-import { useLocalPrice, type PriceFormatter } from "@/lib/currency";
+import { useLocalPrice, type PriceInfo, type PlanId } from "@/lib/currency";
 
 function useCountdown(seconds: number) {
   const [left, setLeft] = useState(seconds);
@@ -31,22 +31,21 @@ const proItems = [
 ];
 
 export function PriceBlock({
-  before,
-  now,
+  plan,
   price,
   gold,
 }: {
-  before: number;
-  now: number;
-  price: PriceFormatter;
+  plan: PlanId;
+  price: PriceInfo;
   gold?: boolean;
 }) {
+  const planPrice = price[plan];
   return (
     <div className="mt-3">
       <p className="text-sm text-muted-foreground">
         Antes:{" "}
         <span className="line-through decoration-destructive/80 decoration-2">
-          {price.format(before)}
+          {planPrice.before}
         </span>
       </p>
       <p className="mt-0.5 flex flex-wrap items-baseline gap-2">
@@ -56,18 +55,20 @@ export function PriceBlock({
         <span
           className={`text-5xl leading-none font-display ${gold ? "text-gold-gradient" : "text-foreground"}`}
         >
-          {price.format(now)}
+          {planPrice.now}
         </span>
       </p>
       <p className="mt-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
         Precio promocional por tiempo limitado
-        {price.isLocal ? " · Precio convertido automáticamente según tu región." : ""}
+        {price.isLocal && planPrice.isApproximate
+          ? " · Valor aproximado en tu moneda. El valor final se confirma en el checkout."
+          : ""}
       </p>
     </div>
   );
 }
 
-export function PlanEssential({ price }: { price: PriceFormatter }) {
+export function PlanEssential({ price }: { price: PriceInfo }) {
   return (
     <article
       id="plan-essential"
@@ -77,7 +78,7 @@ export function PlanEssential({ price }: { price: PriceFormatter }) {
         Oferta especial
       </span>
       <h3 className="mt-4 text-3xl uppercase">Plan Essential</h3>
-      <PriceBlock before={67} now={7} price={price} />
+      <PriceBlock plan="essential" price={price} />
       <p className="mt-3 text-sm text-muted-foreground">
         Todo lo esencial para entender los fundamentos y empezar.
       </p>
@@ -96,7 +97,7 @@ export function PlanEssential({ price }: { price: PriceFormatter }) {
         href="https://pay.hotmart.com/E107152836Q?off=vo72z49a&checkoutMode=10"
         className="glow-blue mt-8 flex w-full items-center justify-center rounded-xl bg-blue-gradient px-4 py-4 text-center text-sm font-extrabold uppercase tracking-wide text-primary-foreground shadow-blue active:scale-[0.98]"
       >
-        Quiero el Essential — {price.format(7)}
+        Quiero el Essential — {price.essential.now}
       </a>
       <p className="mt-auto pt-3 text-center text-xs text-muted-foreground">
         Pago único · Acceso inmediato
@@ -105,7 +106,7 @@ export function PlanEssential({ price }: { price: PriceFormatter }) {
   );
 }
 
-export function PlanPro({ price }: { price: PriceFormatter }) {
+export function PlanPro({ price }: { price: PriceInfo }) {
   return (
     <article
       id="plan-pro"
@@ -120,7 +121,7 @@ export function PlanPro({ price }: { price: PriceFormatter }) {
         </span>
       </div>
       <h3 className="mt-4 text-3xl uppercase text-gold-gradient">Plan PRO</h3>
-      <PriceBlock before={117} now={17} price={price} gold />
+      <PriceBlock plan="pro" price={price} gold />
       <p className="mt-3 text-sm text-muted-foreground">
         La opción para quien quiere seguir el método de forma mucho más completa y organizada.
       </p>
@@ -143,7 +144,7 @@ export function PlanPro({ price }: { price: PriceFormatter }) {
         href="https://pay.hotmart.com/F107153247F?checkoutMode=10"
         className="sheen-gold mt-8 flex w-full items-center justify-center rounded-xl bg-gold-gradient px-4 py-4 text-center text-sm font-extrabold uppercase tracking-wide text-gold-foreground shadow-gold active:scale-[0.98]"
       >
-        <span className="relative z-10">Quiero el Plan PRO — {price.format(17)}</span>
+        <span className="relative z-10">Quiero el Plan PRO — {price.pro.now}</span>
       </a>
       <p className="mt-3 text-center text-xs text-muted-foreground">
         Para quien quiere seguir una estructura completa durante los próximos meses.

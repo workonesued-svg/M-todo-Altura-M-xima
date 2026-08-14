@@ -25,8 +25,8 @@ export function FinalCta() {
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">
               Plan Essential
             </p>
-            <p className="text-xs text-muted-foreground line-through">{price.format(67)}</p>
-            <p className="mt-1 text-4xl font-display">{price.format(7)}</p>
+            <p className="text-xs text-muted-foreground line-through">{price.essential.before}</p>
+            <p className="mt-1 text-4xl font-display">{price.essential.now}</p>
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
               <Check className="h-3.5 w-3.5 text-primary" /> Los fundamentos para empezar
             </p>
@@ -39,17 +39,17 @@ export function FinalCta() {
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--gold)]">
               Plan PRO · Recomendado
             </p>
-            <p className="text-xs text-muted-foreground line-through">{price.format(117)}</p>
-            <p className="mt-1 text-4xl font-display text-gold-gradient">{price.format(17)}</p>
+            <p className="text-xs text-muted-foreground line-through">{price.pro.before}</p>
+            <p className="mt-1 text-4xl font-display text-gold-gradient">{price.pro.now}</p>
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
               <Check className="h-3.5 w-3.5 text-[var(--gold)]" /> La estructura completa
             </p>
           </button>
         </div>
 
-        {price.isLocal && (
+        {price.isLocal && (price.essential.isApproximate || price.pro.isApproximate) && (
           <p className="mt-3 text-[11px] text-muted-foreground">
-            Precio convertido automáticamente según tu región.
+            Valor aproximado en tu moneda. El valor final se confirma en el checkout.
           </p>
         )}
 
