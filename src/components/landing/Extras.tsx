@@ -1,82 +1,24 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import mockupPlacas from "@/assets/mockup-plan-accion.jpg";
+import mockupPlacas from "@/assets/mockup-placas-crecimiento.png";
+import mockupPlanAccionCard from "@/assets/mockup-plan-accion-dashboard.png";
 import mockupNutri from "@/assets/mockup-nutricional.jpg";
 import mockupTracker from "@/assets/mockup-tracker.jpg";
 import mockupMetodo from "@/assets/mockup-metodo.jpg";
 import mockupCalendario from "@/assets/mockup-calendario.jpg";
-
-const extras = [
-  {
-    img: mockupPlacas,
-    title: "Plan de Acción PRO",
-    text: "Un plan estructurado para saber exactamente qué hacer cada semana.",
-    pro: true,
-  },
-  {
-    img: mockupNutri,
-    title: "Plan Nutricional PRO",
-    text: "Organiza mejor tu alimentación para acompañar tu rutina.",
-    pro: true,
-  },
-  {
-    img: mockupTracker,
-    title: "Seguimiento de Evolución",
-    text: "Registra tu progreso y mantén una mayor constancia.",
-    pro: true,
-  },
-];
+import mockupSecretoVerde from "@/assets/mockup-secreto-verde.png";
+import mockupChecklist from "@/assets/mockup-checklist-semanal.png";
 
 const gallery = [
   { img: mockupMetodo, label: "Método Altura Máxima", pro: false },
   { img: mockupPlacas, label: "Guía de las Placas de Crecimiento", pro: false },
-  { img: mockupPlacas, label: "Plan de Acción PRO", pro: true },
+  { img: mockupPlanAccionCard, label: "Plan de Acción PRO", pro: true },
   { img: mockupTracker, label: "Tracker de Evolución", pro: true },
   { img: mockupCalendario, label: "Calendario de Crecimiento", pro: true },
   { img: mockupNutri, label: "Plan Nutricional PRO", pro: true },
-  { img: mockupMetodo, label: "Checklist Semanal PRO", pro: true },
-  { img: mockupNutri, label: "El Secreto Verde", pro: true },
+  { img: mockupChecklist, label: "Checklist Semanal PRO", pro: true },
+  { img: mockupSecretoVerde, label: "El Secreto Verde", pro: true },
 ];
-
-export function Extras() {
-  return (
-    <section className="px-5 py-14">
-      <div className="mx-auto max-w-5xl">
-        <h2 className="text-3xl sm:text-4xl">Contenido adicional del Plan PRO</h2>
-
-
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {extras.map((e) => (
-            <article
-              key={e.title}
-              className="card-lift overflow-hidden rounded-2xl border border-border/70 bg-card shadow-card"
-            >
-              <div className="relative">
-                <img
-                  src={e.img}
-                  alt={e.title}
-                  width={1024}
-                  height={1024}
-                  loading="lazy"
-                  className="h-44 w-full object-cover"
-                />
-                {e.pro && (
-                  <span className="absolute right-3 top-3 rounded-full bg-gold-gradient px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-gold-foreground shadow-gold">
-                    Exclusivo Plan PRO
-                  </span>
-                )}
-              </div>
-              <div className="p-4">
-                <h3 className="text-lg uppercase leading-tight">{e.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{e.text}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export function Gallery() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -109,7 +51,7 @@ export function Gallery() {
   };
 
   return (
-    <section className="bg-[var(--surface)] py-14">
+    <section className="bg-[var(--surface)] pb-14">
       <div className="mx-auto max-w-5xl px-5">
         <h2 className="text-3xl sm:text-4xl">Mira todo lo que recibirás</h2>
         <p className="mt-2 text-sm text-muted-foreground">

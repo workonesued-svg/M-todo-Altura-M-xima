@@ -69,7 +69,10 @@ export function PriceBlock({
 
 export function PlanEssential({ price }: { price: PriceFormatter }) {
   return (
-    <article className="card-lift flex h-full flex-col rounded-2xl border border-primary/40 bg-card p-6 shadow-card">
+    <article
+      id="plan-essential"
+      className="card-lift flex h-full flex-col rounded-2xl border border-primary/40 bg-card p-6 shadow-card"
+    >
       <span className="w-fit rounded-full bg-primary/15 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-primary">
         Oferta especial
       </span>
@@ -90,7 +93,7 @@ export function PlanEssential({ price }: { price: PriceFormatter }) {
         ))}
       </ul>
       <a
-        href="#planes"
+        href="https://pay.hotmart.com/E107152836Q?off=vo72z49a&checkoutMode=10"
         className="glow-blue mt-8 flex w-full items-center justify-center rounded-xl bg-blue-gradient px-4 py-4 text-center text-sm font-extrabold uppercase tracking-wide text-primary-foreground shadow-blue active:scale-[0.98]"
       >
         Quiero el Essential — {price.format(7)}
@@ -104,7 +107,10 @@ export function PlanEssential({ price }: { price: PriceFormatter }) {
 
 export function PlanPro({ price }: { price: PriceFormatter }) {
   return (
-    <article className="card-lift relative flex h-full flex-col rounded-2xl border-2 border-[var(--gold)] bg-[var(--navy)] p-6 shadow-gold">
+    <article
+      id="plan-pro"
+      className="card-lift relative flex h-full flex-col rounded-2xl border-2 border-[var(--gold)] bg-[var(--navy)] p-6 shadow-gold"
+    >
       <div className="flex min-w-0 flex-wrap items-center gap-2">
         <span className="rounded-full bg-gold-gradient px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-gold-foreground">
           Más completo
@@ -125,12 +131,16 @@ export function PlanPro({ price }: { price: PriceFormatter }) {
         {proItems.map((i) => (
           <li key={i} className="flex items-start gap-2.5 text-sm">
             <Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--gold)]" />
-            {i}
+            {i === "El Secreto Verde" ? (
+              <span className="text-green-gradient font-bold tracking-wide">{i}</span>
+            ) : (
+              i
+            )}
           </li>
         ))}
       </ul>
       <a
-        href="#planes"
+        href="https://pay.hotmart.com/F107153247F?checkoutMode=10"
         className="sheen-gold mt-8 flex w-full items-center justify-center rounded-xl bg-gold-gradient px-4 py-4 text-center text-sm font-extrabold uppercase tracking-wide text-gold-foreground shadow-gold active:scale-[0.98]"
       >
         <span className="relative z-10">Quiero el Plan PRO — {price.format(17)}</span>

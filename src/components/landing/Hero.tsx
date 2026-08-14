@@ -1,5 +1,4 @@
 import heroMan from "@/assets/hero-man.jpg";
-import mockupMetodo from "@/assets/mockup-metodo.jpg";
 
 
 export function Hero() {
@@ -22,21 +21,13 @@ export function Hero() {
           organizada.
         </p>
 
-        <div className="relative mt-6 grid grid-cols-[1.05fr_1fr] items-end gap-2 sm:mx-auto sm:max-w-2xl">
+        <div className="relative mt-6 flex justify-center sm:mx-auto sm:max-w-md">
           <img
             src={heroMan}
             alt="Hombre joven de pie con postura firme junto a una regla de altura"
             width={1024}
             height={1280}
-            className="h-52 w-full rounded-2xl object-cover object-top shadow-card sm:h-80"
-          />
-          <img
-            src={mockupMetodo}
-            alt="Materiales digitales del Método Altura Máxima en tablet y móvil"
-            width={1024}
-            height={1024}
-            loading="lazy"
-            className="h-52 w-full rounded-2xl object-cover shadow-card sm:h-80"
+            className="h-72 w-full rounded-2xl object-cover object-top shadow-card sm:h-96"
           />
         </div>
 

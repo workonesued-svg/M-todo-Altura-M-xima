@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
 import { useLocalPrice } from "@/lib/currency";
+import { scrollToPlan } from "@/lib/scroll-to-plan";
 
 export function FinalCta() {
   const price = useLocalPrice();
@@ -16,7 +17,11 @@ export function FinalCta() {
         </p>
 
         <div className="mt-7 grid gap-3 sm:grid-cols-2">
-          <div className="card-lift order-2 rounded-2xl border border-primary/40 bg-card p-5 text-left sm:order-1">
+          <button
+            type="button"
+            onClick={() => scrollToPlan("plan-essential")}
+            className="card-lift order-2 w-full rounded-2xl border border-primary/40 bg-card p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 sm:order-1"
+          >
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">
               Plan Essential
             </p>
@@ -25,8 +30,12 @@ export function FinalCta() {
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
               <Check className="h-3.5 w-3.5 text-primary" /> Los fundamentos para empezar
             </p>
-          </div>
-          <div className="card-lift order-1 rounded-2xl border-2 border-[var(--gold)] bg-[var(--navy)] p-5 text-left shadow-gold sm:order-2">
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToPlan("plan-pro")}
+            className="card-lift order-1 w-full rounded-2xl border-2 border-[var(--gold)] bg-[var(--navy)] p-5 text-left shadow-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--gold)]/60 sm:order-2"
+          >
             <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--gold)]">
               Plan PRO · Recomendado
             </p>
@@ -35,7 +44,7 @@ export function FinalCta() {
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
               <Check className="h-3.5 w-3.5 text-[var(--gold)]" /> La estructura completa
             </p>
-          </div>
+          </button>
         </div>
 
         {price.isLocal && (
