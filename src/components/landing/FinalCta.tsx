@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check } from "lucide-react";
+import { Check, Info } from "lucide-react";
 import { useLocalPrice } from "@/lib/currency";
 import { scrollToPlan } from "@/lib/scroll-to-plan";
 
@@ -27,6 +27,11 @@ export function FinalCta() {
             </p>
             <p className="text-xs text-muted-foreground line-through">{price.essential.before}</p>
             <p className="mt-1 text-4xl font-display">{price.essential.now}</p>
+            {price.isLocal && (
+              <p className="mt-0.5 text-[10px] text-muted-foreground">
+                Precio base: {price.essential.usdNow}
+              </p>
+            )}
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
               <Check className="h-3.5 w-3.5 text-primary" /> Los fundamentos para empezar
             </p>
@@ -41,16 +46,23 @@ export function FinalCta() {
             </p>
             <p className="text-xs text-muted-foreground line-through">{price.pro.before}</p>
             <p className="mt-1 text-4xl font-display text-gold-gradient">{price.pro.now}</p>
+            {price.isLocal && (
+              <p className="mt-0.5 text-[10px] text-muted-foreground">Precio base: {price.pro.usdNow}</p>
+            )}
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
               <Check className="h-3.5 w-3.5 text-[var(--gold)]" /> La estructura completa
             </p>
           </button>
         </div>
 
-        {price.isLocal && (price.essential.isApproximate || price.pro.isApproximate) && (
-          <p className="mt-3 text-[11px] text-muted-foreground">
-            Valor aproximado en tu moneda. El valor final se confirma en el checkout.
-          </p>
+        {price.isLocal && (
+          <div className="mx-auto mt-3 flex w-fit max-w-full items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-[11px] text-muted-foreground">
+            <Info className="h-3.5 w-3.5 shrink-0 text-primary" />
+            <span>
+              <span className="font-bold text-primary">Precio aproximado.</span> La diferencia suele ser
+              mínima.
+            </span>
+          </div>
         )}
 
         <a

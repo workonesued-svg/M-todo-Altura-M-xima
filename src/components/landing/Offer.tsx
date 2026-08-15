@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Check, Crown, Timer } from "lucide-react";
+import { Check, Crown, Info, Timer } from "lucide-react";
 import { useLocalPrice, type PriceInfo, type PlanId } from "@/lib/currency";
 
 function useCountdown(seconds: number) {
@@ -58,12 +58,29 @@ export function PriceBlock({
           {planPrice.now}
         </span>
       </p>
+      {price.isLocal && (
+        <p className="mt-0.5 text-[11px] text-muted-foreground">Precio base: {planPrice.usdNow}</p>
+      )}
       <p className="mt-2 text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
         Precio promocional por tiempo limitado
-        {price.isLocal && planPrice.isApproximate
-          ? " · Valor aproximado en tu moneda. El valor final se confirma en el checkout."
-          : ""}
       </p>
+      {price.isLocal && (
+        <div
+          className={`mt-2 flex items-start gap-2 rounded-lg border px-3 py-2 ${
+            gold ? "border-[var(--gold)]/30 bg-[var(--gold)]/10" : "border-primary/30 bg-primary/10"
+          }`}
+        >
+          <Info
+            className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${gold ? "text-[var(--gold)]" : "text-primary"}`}
+          />
+          <p className="text-[11px] leading-snug text-muted-foreground">
+            <span className={`font-bold ${gold ? "text-[var(--gold)]" : "text-primary"}`}>
+              Precio aproximado.
+            </span>{" "}
+            Puede variar levemente respecto al checkout — la diferencia suele ser mínima.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

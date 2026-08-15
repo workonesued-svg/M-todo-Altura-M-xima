@@ -5,6 +5,7 @@ export type { PlanId } from "./hotmart-prices";
 
 type CurrencyInfo = { code: string; locale: string };
 
+// Cubre todos los países de habla hispana en Latinoamérica (más Brasil y España).
 const COUNTRY_CURRENCY: Record<string, CurrencyInfo> = {
   CO: { code: "COP", locale: "es-CO" },
   MX: { code: "MXN", locale: "es-MX" },
@@ -19,6 +20,15 @@ const COUNTRY_CURRENCY: Record<string, CurrencyInfo> = {
   GT: { code: "GTQ", locale: "es-GT" },
   DO: { code: "DOP", locale: "es-DO" },
   ES: { code: "EUR", locale: "es-ES" },
+  VE: { code: "VES", locale: "es-VE" },
+  HN: { code: "HNL", locale: "es-HN" },
+  NI: { code: "NIO", locale: "es-NI" },
+  // Países que usan el dólar estadounidense como moneda oficial: no hay
+  // conversión real que hacer, el precio local ya es el precio base en USD.
+  EC: { code: "USD", locale: "es-EC" },
+  PA: { code: "USD", locale: "es-PA" },
+  SV: { code: "USD", locale: "es-SV" },
+  PR: { code: "USD", locale: "es-PR" },
 };
 
 // Mapa de zona horaria -> país (cubre los mercados objetivo).
@@ -45,6 +55,14 @@ const TZ_COUNTRY: Record<string, string> = {
   "America/Guatemala": "GT",
   "America/Santo_Domingo": "DO",
   "Europe/Madrid": "ES",
+  "America/Caracas": "VE",
+  "America/Tegucigalpa": "HN",
+  "America/Managua": "NI",
+  "America/Guayaquil": "EC",
+  "Pacific/Galapagos": "EC",
+  "America/Panama": "PA",
+  "America/El_Salvador": "SV",
+  "America/Puerto_Rico": "PR",
 };
 
 // Tasas de respaldo aproximadas (se sobrescriben con tasas en vivo).
@@ -64,6 +82,12 @@ const FALLBACK_RATES: Record<string, number> = {
   GTQ: 7.8,
   DOP: 60,
   EUR: 0.92,
+  HNL: 24.7,
+  NIO: 36.6,
+  // VES (Venezuela) queda fuera a propósito: es una moneda hiperinflacionaria y
+  // cualquier tasa fija quedaría desactualizada en semanas. Sin una tasa de
+  // respaldo, si la API en vivo tampoco la trae, el sitio muestra el precio
+  // base en USD en vez de arriesgar un valor local muy desactualizado.
 };
 
 // Monedas que se muestran sin decimales (ni en el valor real ni en el aproximado).
@@ -77,6 +101,13 @@ const PLAN_BASE_USD: Record<PlanId, { now: number; before: number }> = {
 
 function detectCountry(): string | null {
   try {
+    // Permite forzar un país por query param para previsualizar precios,
+    // ej: ?preview_country=CO. No afecta a los usuarios reales.
+    const preview = new URLSearchParams(window.location.search)
+      .get("preview_country")
+      ?.toUpperCase();
+    if (preview && COUNTRY_CURRENCY[preview]) return preview;
+
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const byTz = tz ? TZ_COUNTRY[tz] : undefined;
     if (byTz) return byTz;
@@ -119,6 +150,8 @@ function formatApprox(value: number, code: string, locale: string) {
 export type PlanPriceView = {
   now: string;
   before: string;
+  /** Precio base fijo en USD (referencia estable, independiente de la moneda local). */
+  usdNow: string;
   /** true = conversión por tasa de cambio (no es el precio real del checkout). */
   isApproximate: boolean;
 };
@@ -132,7 +165,8 @@ export type PriceInfo = {
 
 function usdView(plan: PlanId): PlanPriceView {
   const base = PLAN_BASE_USD[plan];
-  return { now: `US$ ${base.now}`, before: `US$ ${base.before}`, isApproximate: false };
+  const usd = `US$ ${base.now}`;
+  return { now: usd, before: `US$ ${base.before}`, usdNow: usd, isApproximate: false };
 }
 
 const USD_FALLBACK: PriceInfo = {
@@ -150,6 +184,7 @@ function buildPriceInfo(country: string, rate: number | null): PriceInfo {
   for (const plan of plans) {
     const base = PLAN_BASE_USD[plan];
     const realNow = realPrices?.[plan];
+    const usdNow = `US$ ${base.now}`;
 
     if (typeof realNow === "number") {
       // Precio real confirmado del checkout de Hotmart: se muestra tal cual,
@@ -159,6 +194,7 @@ function buildPriceInfo(country: string, rate: number | null): PriceInfo {
       result[plan] = {
         now: formatExact(realNow, currencyInfo.code, currencyInfo.locale),
         before: formatExact(before, currencyInfo.code, currencyInfo.locale),
+        usdNow,
         isApproximate: false,
       };
     } else if (rate) {
@@ -166,6 +202,7 @@ function buildPriceInfo(country: string, rate: number | null): PriceInfo {
       result[plan] = {
         now: formatApprox(base.now * rate, currencyInfo.code, currencyInfo.locale),
         before: formatApprox(base.before * rate, currencyInfo.code, currencyInfo.locale),
+        usdNow,
         isApproximate: true,
       };
     } else {
