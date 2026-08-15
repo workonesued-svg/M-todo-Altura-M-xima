@@ -29,6 +29,6 @@ export type HotmartLocalizedPrice = {
 };
 
 export const HOTMART_LOCALIZED_PRICES: Record<string, HotmartLocalizedPrice> = {
-  BR: { currency: "BRL", locale: "pt-BR", pro: 97.6 },
+  BR: { currency: "BRL", locale: "pt-BR", essential: 40.19, pro: 97.6 },
   CO: { currency: "COP", locale: "es-CO", pro: 56512 },
 };
