@@ -1,37 +1,30 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import mockupPlacas from "@/assets/mockup-placas-crecimiento.png";
-import mockupPlanAccionCard from "@/assets/mockup-plan-accion-dashboard.png";
-import mockupNutri from "@/assets/mockup-nutricional.jpg";
-import mockupTracker from "@/assets/mockup-tracker.jpg";
-import mockupMetodo from "@/assets/mockup-metodo.jpg";
-import mockupCalendario from "@/assets/mockup-calendario.jpg";
-import mockupSecretoVerde from "@/assets/mockup-secreto-verde.png";
-import mockupChecklist from "@/assets/mockup-checklist-semanal.png";
+import { ChevronLeft, ChevronRight, FileText, Gift } from "lucide-react";
+import { Placeholder } from "@/components/landing/Placeholder";
 
-const gallery = [
-  { img: mockupMetodo, label: "Método Altura Máxima", pro: false },
-  { img: mockupPlacas, label: "Guía de las Placas de Crecimiento", pro: false },
-  { img: mockupPlanAccionCard, label: "Plan de Acción PRO", pro: true },
-  { img: mockupTracker, label: "Tracker de Evolución", pro: true },
-  { img: mockupCalendario, label: "Calendario de Crecimiento", pro: true },
-  { img: mockupNutri, label: "Plan Nutricional PRO", pro: true },
-  { img: mockupChecklist, label: "Checklist Semanal PRO", pro: true },
-  { img: mockupSecretoVerde, label: "El Secreto Verde", pro: true },
+const examples = [
+  { label: "O Pato de João", text: "Texto curto com perguntas de compreensão." },
+  { label: "A Horta da Vovó", text: "Vocabulário novo e interpretação guiada." },
+  { label: "O Dia de Chuva", text: "Atividade de escrita com as próprias palavras." },
 ];
 
-export function Gallery() {
+export function ActivityExamples() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+
+  const step = useCallback(() => {
+    const el = trackRef.current;
+    const card = el?.firstElementChild as HTMLElement | null;
+    return card ? card.offsetWidth + 16 : 0;
+  }, []);
 
   const onScroll = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
-    const card = el.firstElementChild as HTMLElement | null;
-    if (!card) return;
-    const step = card.offsetWidth + 16;
-    setActive(Math.min(gallery.length - 1, Math.max(0, Math.round(el.scrollLeft / step))));
-  }, []);
+    const s = step();
+    if (!s) return;
+    setActive(Math.min(examples.length - 1, Math.max(0, Math.round(el.scrollLeft / s))));
+  }, [step]);
 
   useEffect(() => {
     const el = trackRef.current;
@@ -42,94 +35,128 @@ export function Gallery() {
 
   const scrollTo = (index: number) => {
     const el = trackRef.current;
-    if (!el) return;
-    const card = el.firstElementChild as HTMLElement | null;
-    if (!card) return;
-    const step = card.offsetWidth + 16;
-    const i = Math.min(gallery.length - 1, Math.max(0, index));
-    el.scrollTo({ left: i * step, behavior: "smooth" });
+    const s = step();
+    if (!el || !s) return;
+    const i = Math.min(examples.length - 1, Math.max(0, index));
+    el.scrollTo({ left: i * s, behavior: "smooth" });
   };
 
   return (
-    <section className="bg-[var(--surface)] pb-14">
-      <div className="mx-auto max-w-5xl px-5">
-        <h2 className="text-3xl sm:text-4xl">Mira todo lo que recibirás</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Contenido organizado para que puedas abrir, entender y empezar. Desliza o usa las flechas.
+    <section className="bg-surface pb-12 pt-12">
+      <div className="mx-auto max-w-md px-4">
+        <h2 className="text-center text-[1.6rem] leading-[1.15] font-extrabold sm:text-3xl">
+          Exemplos de atividades
+        </h2>
+        <p className="mt-2 text-center text-sm text-muted-foreground">
+          Deslize para ver como as páginas do método são organizadas.
         </p>
       </div>
 
-      <div className="relative mt-6">
+      <div className="relative mt-5">
         <div
           ref={trackRef}
-          className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2"
+          className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2"
         >
-          {gallery.map((g) => (
+          {examples.map((e) => (
             <figure
-              key={g.label}
-              className="w-[72vw] max-w-xs shrink-0 snap-center overflow-hidden rounded-2xl border border-border/70 bg-card shadow-card"
+              key={e.label}
+              className="w-[78%] max-w-[300px] shrink-0 snap-center overflow-hidden rounded-2xl border border-border bg-card shadow-card"
             >
-              <div className="relative">
-                <img
-                  src={g.img}
-                  alt={g.label}
-                  width={1024}
-                  height={1024}
-                  loading="lazy"
-                  className="h-56 w-full object-cover"
-                />
-                <span
-                  className={`absolute right-3 top-3 rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider ${
-                    g.pro
-                      ? "bg-gold-gradient text-gold-foreground shadow-gold"
-                      : "bg-blue-gradient text-primary-foreground shadow-blue"
-                  }`}
-                >
-                  {g.pro ? "Exclusivo Plan PRO" : "Incluido en Essential"}
-                </span>
-              </div>
-              <figcaption className="px-4 py-3 text-sm font-semibold">{g.label}</figcaption>
+              <Placeholder
+                icon={FileText}
+                variant="card"
+                aspect="aspect-[3/4]"
+                className="rounded-none"
+              />
+              <figcaption className="px-4 py-3">
+                <p className="text-sm font-extrabold">{e.label}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">{e.text}</p>
+              </figcaption>
             </figure>
           ))}
-
         </div>
-
-        {/* Pistas visuales de que hay más contenido */}
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-[var(--surface)] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[var(--surface)] to-transparent" />
 
         <button
           type="button"
           aria-label="Anterior"
           onClick={() => scrollTo(active - 1)}
-          className="glow-blue absolute left-2 top-1/2 z-10 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-border/70 bg-card/90 text-foreground backdrop-blur disabled:opacity-40"
+          className="absolute left-2 top-[38%] z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full border border-border bg-card/90 text-foreground shadow-card backdrop-blur disabled:opacity-40"
           disabled={active === 0}
         >
-          <ChevronLeft className="h-5 w-5" />
+          <ChevronLeft className="h-4 w-4" />
         </button>
         <button
           type="button"
-          aria-label="Siguiente"
+          aria-label="Próximo"
           onClick={() => scrollTo(active + 1)}
-          className="glow-blue absolute right-2 top-1/2 z-10 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-border/70 bg-card/90 text-foreground backdrop-blur disabled:opacity-40"
-          disabled={active === gallery.length - 1}
+          className="absolute right-2 top-[38%] z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full border border-border bg-card/90 text-foreground shadow-card backdrop-blur disabled:opacity-40"
+          disabled={active === examples.length - 1}
         >
-          <ChevronRight className="h-5 w-5" />
+          <ChevronRight className="h-4 w-4" />
         </button>
       </div>
 
       <div className="mt-4 flex justify-center gap-2">
-        {gallery.map((g, i) => (
+        {examples.map((e, i) => (
           <button
-            key={g.label}
+            key={e.label}
             type="button"
-            aria-label={`Ir a ${g.label}`}
+            aria-label={`Ir para ${e.label}`}
             onClick={() => scrollTo(i)}
             className={`h-1.5 rounded-full transition-all ${
-              i === active ? "w-6 bg-gold-gradient" : "w-2 bg-border"
+              i === active ? "w-6 bg-primary" : "w-2 bg-border"
             }`}
           />
         ))}
+      </div>
+    </section>
+  );
+}
+
+const bonuses = [
+  "Sílabas Simples",
+  "Sílabas Complexas",
+  "Gêneros Textuais",
+  "Alfabetização",
+  "Ortografia",
+  "Produção de Textos",
+];
+
+export function Bonuses() {
+  return (
+    <section className="px-4 py-12">
+      <div className="mx-auto max-w-md">
+        <div className="flex justify-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-sun-gradient px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-sun-foreground shadow-sun">
+            <Gift className="h-3.5 w-3.5" />
+            Bônus exclusivos
+          </span>
+        </div>
+        <h2 className="mt-3 text-center text-[1.6rem] leading-[1.15] font-extrabold sm:text-3xl">
+          Comprando hoje, você leva +6 apostilas de presente
+        </h2>
+
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          {bonuses.map((b) => (
+            <article
+              key={b}
+              className="card-lift overflow-hidden rounded-2xl border border-border bg-card shadow-card"
+            >
+              <Placeholder
+                icon={Gift}
+                variant="sun"
+                aspect="aspect-square"
+                className="rounded-none"
+                iconClassName="h-8 w-8"
+              />
+              <p className="px-3 py-2.5 text-center text-sm font-bold leading-snug">{b}</p>
+            </article>
+          ))}
+        </div>
+
+        <p className="mt-6 rounded-2xl border border-primary/25 bg-primary/10 px-5 py-3 text-center text-sm font-extrabold text-primary">
+          Total em bônus: de R$180,00 por R$0,00 hoje
+        </p>
       </div>
     </section>
   );

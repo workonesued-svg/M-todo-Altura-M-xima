@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/landing/Hero";
-import { Pillars, WhyMethod } from "@/components/landing/Pillars";
-import { Gallery } from "@/components/landing/Extras";
+import { Problems, Method } from "@/components/landing/Pillars";
+import { ActivityExamples, Bonuses } from "@/components/landing/Extras";
 import { Offer } from "@/components/landing/Offer";
 import { Testimonials, Guarantee, Faq } from "@/components/landing/Social";
 import { FinalCta, Footer, StickyBar } from "@/components/landing/FinalCta";
 
-const title = "Método Altura Máxima — Rutina, postura y desarrollo físico";
+const title = "Método Leitura em Blocos™ — Kit de Textos Fatiados para Crianças";
 const description =
-  "Método práctico para trabajar hábitos, postura, descanso, nutrición y rutina. Plan Essential US$7 y Plan PRO US$17. Acceso inmediato, 100% digital.";
+  "Ajude seu filho ou aluno a ler, compreender e interpretar textos com leveza. Método em 6 etapas + mais de 2.000 atividades. Acesso imediato, 100% digital.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,11 +26,12 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="pb-20">
+    <main className="overflow-x-hidden pb-20">
       <Hero />
-      <Pillars />
-      <WhyMethod />
-      <Gallery />
+      <ActivityExamples />
+      <Problems />
+      <Method />
+      <Bonuses />
       <Offer />
       <Testimonials />
       <Guarantee />

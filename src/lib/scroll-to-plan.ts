@@ -1,8 +1,8 @@
-export type PlanId = "plan-essential" | "plan-pro";
+export type PlanId = "plan-basico" | "plan-premium";
 
 const HIGHLIGHT_CLASS: Record<PlanId, string> = {
-  "plan-essential": "highlight-blue",
-  "plan-pro": "highlight-gold",
+  "plan-basico": "highlight-primary",
+  "plan-premium": "highlight-cta",
 };
 
 function applyHighlight(el: HTMLElement, planId: PlanId) {

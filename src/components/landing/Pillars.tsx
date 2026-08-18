@@ -1,124 +1,137 @@
-import { Activity, Moon, Apple, PersonStanding, Bone, Check, Compass } from "lucide-react";
+import {
+  BookX,
+  Frown,
+  PuzzleIcon,
+  BookOpen,
+  Lightbulb,
+  Search,
+  PenLine,
+  Sparkles,
+  Trophy,
+} from "lucide-react";
 
-const pillars = [
+const problems = [
   {
-    icon: Activity,
-    title: "Rutina",
-    text: "Movilidad, movimientos y acciones prácticas para incorporar a tu día.",
+    icon: BookX,
+    title: "Lê, mas não entende",
+    text: "A criança consegue ler as palavras, mas não consegue explicar o que acabou de ler.",
   },
   {
-    icon: PersonStanding,
-    title: "Postura",
-    text: "Aprende a cuidar tu alineación y a proyectar mejor tu cuerpo.",
+    icon: Frown,
+    title: "Perde o interesse rápido",
+    text: "Textos longos ou pouco atrativos acabam gerando desânimo e frustração na hora de estudar.",
   },
   {
-    icon: Moon,
-    title: "Descanso",
-    text: "Comprende por qué una buena rutina nocturna forma parte de tu desarrollo físico.",
-  },
-  {
-    icon: Apple,
-    title: "Nutrición",
-    text: "Organiza mejor los hábitos alimenticios que acompañan tu objetivo.",
-  },
-  {
-    icon: Bone,
-    title: "Placas de crecimiento",
-    text: "Entiende mejor uno de los aspectos más importantes relacionados con el crecimiento.",
+    icon: PuzzleIcon,
+    title: "Dificuldade para interpretar",
+    text: "Tem trabalho para responder perguntas simples sobre o texto, mesmo depois de ler com atenção.",
   },
 ];
 
-const benefits = [
-  "Saber por dónde empezar.",
-  "Construir una rutina más organizada.",
-  "Identificar hábitos que pueden estar jugando en tu contra.",
-  "Trabajar postura, movilidad y presencia corporal.",
-  "Entender mejor tu desarrollo físico.",
-  "Mantener la constancia sin complicar tu día.",
-];
-
-export function Pillars() {
+export function Problems() {
   return (
-    <section className="px-5 py-14">
-      <div className="mx-auto max-w-5xl">
-        <h2 className="text-3xl leading-tight sm:text-4xl">
-          Todo lo que necesitas, organizado en un solo método.
+    <section className="px-4 py-12">
+      <div className="mx-auto max-w-md">
+        <h2 className="text-center text-[1.7rem] leading-[1.15] font-extrabold sm:text-3xl">
+          Seu filho ou aluno lê, mas tem dificuldade para entender o que leu?
         </h2>
-        <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-          En lugar de perder tiempo buscando información diferente cada día, tendrás una estructura
-          clara para entender qué observar, qué mejorar y qué incorporar a tu rutina.
+        <p className="mt-2.5 text-center text-[15px] leading-relaxed text-muted-foreground">
+          Isso é mais comum do que parece — e tem solução com o método certo.
         </p>
 
-        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {pillars.map(({ icon: Icon, title, text }) => (
+        <div className="mt-6 flex flex-col gap-3">
+          {problems.map(({ icon: Icon, title, text }) => (
             <article
               key={title}
-              className="card-lift rounded-2xl border border-border/70 bg-card p-5 shadow-card"
+              className="card-lift rounded-2xl border border-border bg-card p-5 shadow-card"
             >
-              <div className="flex min-w-0 items-center gap-3">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary">
+              <div className="flex items-center gap-3">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-primary/12 text-primary">
                   <Icon className="h-5 w-5" />
                 </span>
-                <h3 className="truncate text-xl uppercase">{title}</h3>
+                <h3 className="text-lg font-extrabold leading-snug">{title}</h3>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{text}</p>
+              <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{text}</p>
             </article>
           ))}
-
-          <article className="card-lift rounded-2xl border-2 border-[var(--gold)] bg-[var(--navy)] p-5 shadow-gold">
-            <div className="flex min-w-0 items-center gap-3">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gold-gradient text-gold-foreground">
-                <Compass className="h-5 w-5" />
-              </span>
-              <h3 className="truncate text-xl uppercase text-gold-gradient">El método</h3>
-            </div>
-            <p className="mt-3 text-sm font-semibold leading-relaxed">
-              Lo que necesitas es un método claro para saber exactamente qué hacer con tu rutina,
-              tus hábitos y tu desarrollo.
-            </p>
-          </article>
         </div>
-
       </div>
     </section>
   );
 }
 
-export function WhyMethod() {
+const steps = [
+  {
+    icon: BookOpen,
+    name: "Bloco da Leitura",
+    text: "Leitura guiada e tranquila, no ritmo da criança, sem pressa e sem cobrança.",
+  },
+  {
+    icon: Search,
+    name: "Bloco do Vocabulário",
+    text: "Entendendo palavras novas antes de seguir para o resto do texto.",
+  },
+  {
+    icon: Lightbulb,
+    name: "Bloco da Compreensão",
+    text: "Perguntas simples e diretas sobre o que acabou de ser lido.",
+  },
+  {
+    icon: PuzzleIcon,
+    name: "Bloco da Interpretação",
+    text: "Relacionando ideias do texto para ir além do óbvio.",
+  },
+  {
+    icon: PenLine,
+    name: "Bloco da Escrita",
+    text: "Praticando respostas com as próprias palavras da criança.",
+  },
+  {
+    icon: Trophy,
+    name: "Bloco da Revisão",
+    text: "Consolidando o aprendizado com atividades rápidas e divertidas.",
+  },
+];
+
+export function Method() {
   return (
-    <section className="bg-[var(--surface)] px-5 py-14">
-      <div className="mx-auto max-w-5xl">
-        <h2 className="text-3xl leading-tight sm:text-4xl">
-          Porque no se trata de probar cosas al azar.
+    <section className="bg-surface px-4 py-12">
+      <div className="mx-auto max-w-md">
+        <div className="flex justify-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-primary">
+            <Sparkles className="h-3.5 w-3.5" />
+            Como funciona
+          </span>
+        </div>
+        <h2 className="mt-3 text-center text-[1.7rem] leading-[1.15] font-extrabold sm:text-3xl">
+          O Método Leitura em Blocos™ em 6 etapas
         </h2>
-        <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-          Muchos hombres quieren mejorar su estatura, pero terminan saltando entre ejercicios,
-          consejos, vídeos y rutinas diferentes sin ninguna estructura.
-        </p>
-        <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-          Método Altura Máxima reúne los principales pilares en un sistema claro y fácil de seguir.
+        <p className="mt-2.5 text-center text-[15px] leading-relaxed text-muted-foreground">
+          Cada bloco constrói a compreensão de forma leve, até a criança interpretar qualquer texto
+          sozinha.
         </p>
 
-        <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
-          {benefits.map((b) => (
+        <ol className="mt-7 flex flex-col gap-4">
+          {steps.map(({ icon: Icon, name, text }, i) => (
             <li
-              key={b}
-              className="flex items-start gap-3 rounded-xl border border-border/60 bg-card px-4 py-3"
+              key={name}
+              className="card-lift flex gap-4 rounded-2xl border border-border bg-card p-4 shadow-card"
             >
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              <span className="text-sm leading-snug">{b}</span>
+              <div className="flex shrink-0 flex-col items-center gap-2">
+                <span className="grid h-12 w-12 place-items-center rounded-xl bg-primary-gradient text-primary-foreground shadow-primary">
+                  <Icon className="h-6 w-6" />
+                </span>
+                <span className="font-display text-lg leading-none text-primary">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-base font-extrabold leading-snug">{name}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p>
+              </div>
             </li>
           ))}
-        </ul>
-
-        <p className="mt-6 text-center text-[15px] leading-relaxed text-muted-foreground">
-          Cuando entiendes qué trabajar y cómo hacerlo, todo se vuelve más simple.
-        </p>
-
-        <p className="mt-3 text-center text-xl uppercase text-gold-gradient font-display">
-
-          Menos improvisación. Más claridad. Más constancia.
-        </p>
+        </ol>
       </div>
     </section>
   );

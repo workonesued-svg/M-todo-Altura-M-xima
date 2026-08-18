@@ -1,47 +1,64 @@
-import heroMan from "@/assets/hero-man.jpg";
-
+import { GraduationCap, ShieldCheck, Star, Zap, BookOpenText } from "lucide-react";
+import { Placeholder } from "@/components/landing/Placeholder";
 
 export function Hero() {
   return (
-    <header className="relative overflow-hidden bg-hero-gradient px-5 pb-10 pt-8">
-      <div className="mx-auto max-w-5xl">
-        <div className="flex justify-center">
-          <span className="rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.22em] text-primary">
-            Método Altura Máxima
+    <header className="bg-hero-gradient px-4 pb-8 pt-6">
+      <div className="mx-auto max-w-md">
+        <div className="flex justify-center px-1">
+          <span className="inline-flex max-w-full items-center gap-1 whitespace-nowrap rounded-xl border border-primary/30 bg-primary/10 px-2 py-1.5 text-[9.5px] font-extrabold text-primary">
+            <GraduationCap className="h-3.5 w-3.5 shrink-0" />
+            Da Educação Infantil ao 5º ano, alinhado à BNCC
           </span>
         </div>
 
-        <h1 className="mt-4 text-center text-[1.9rem] leading-[1.08] font-normal sm:text-5xl">
-          ¿Sientes que aún no estás aprovechando todo tu
-          <span className="text-gold-gradient"> potencial de altura</span>?
+        <h1 className="mt-4 text-center text-[1.9rem] leading-[1.12] font-extrabold text-foreground sm:text-4xl">
+          Ajude seu filho ou aluno a ler, entender e{" "}
+          <span className="text-info-gradient">interpretar textos</span> com leveza
         </h1>
 
-        <p className="mx-auto mt-3 max-w-2xl text-center text-[15px] leading-relaxed text-muted-foreground sm:text-lg">
-          Descubre un método claro para trabajar hábitos, postura, descanso y nutrición de forma
-          organizada.
+        <p className="mx-auto mt-3 max-w-sm text-center text-base leading-relaxed text-muted-foreground">
+          Do jeito que toda criança merece aprender: leve, divertido e sem frustração.
         </p>
 
-        <div className="relative mt-6 flex justify-center sm:mx-auto sm:max-w-md">
-          <img
-            src={heroMan}
-            alt="Hombre joven de pie con postura firme junto a una regla de altura"
-            width={1024}
-            height={1280}
-            className="h-72 w-full rounded-2xl object-cover object-top shadow-card sm:h-96"
+        <div className="relative mx-auto mt-5 w-full max-w-[280px]">
+          <Placeholder
+            icon={BookOpenText}
+            label="Kit Leitura em Blocos™"
+            variant="primary"
+            aspect="aspect-[4/5]"
+            className="shadow-card"
+            iconClassName="h-14 w-14"
           />
         </div>
 
+        <div className="mt-6 text-center">
+          <p className="text-sm text-muted-foreground">
+            De <span className="line-through decoration-destructive/70 decoration-2">R$97,90</span>{" "}
+            por apenas
+          </p>
+          <p className="text-5xl font-display leading-none text-primary-gradient">R$34,35</p>
+          <p className="mt-1 text-xs text-muted-foreground">Pagamento único · acesso imediato</p>
+        </div>
+
         <a
-          href="#planes"
-          className="glow-blue mt-6 flex w-full items-center justify-center rounded-xl bg-blue-gradient px-6 py-4 text-base font-extrabold uppercase tracking-wide text-primary-foreground shadow-blue transition-transform active:scale-[0.98] sm:mx-auto sm:max-w-md"
+          href="#oferta"
+          className="pulse-cta glow-cta mt-5 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-6 py-4 text-base font-extrabold uppercase tracking-wide text-cta-foreground shadow-cta active:scale-[0.98]"
         >
-          Quiero descubrir el método
+          Quero começar agora
         </a>
 
-        <p className="mt-3 text-center text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          Acceso inmediato · 100% digital
-        </p>
-
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs font-semibold text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5">
+            <Zap className="h-3.5 w-3.5 text-primary" /> Acesso imediato
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Pagamento seguro
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Star className="h-3.5 w-3.5 fill-current text-sun" /> 4.9/5 de avaliação
+          </span>
+        </div>
       </div>
     </header>
   );

@@ -1,75 +1,54 @@
 import { useEffect, useState } from "react";
-import { Check, Info } from "lucide-react";
-import { useLocalPrice } from "@/lib/currency";
+import { Check } from "lucide-react";
 import { scrollToPlan } from "@/lib/scroll-to-plan";
 
 export function FinalCta() {
-  const price = useLocalPrice();
-
   return (
-    <section className="bg-[oklch(0.10_0.02_264)] px-5 py-16">
-      <div className="mx-auto max-w-3xl text-center">
-        <h2 className="text-3xl leading-tight sm:text-4xl">
-          Deja de seguir improvisando y empieza a trabajar tu potencial de forma más clara.
+    <section className="bg-hero-gradient px-4 py-14">
+      <div className="mx-auto max-w-md text-center">
+        <h2 className="text-[1.7rem] leading-[1.15] font-extrabold sm:text-3xl">
+          Ajude seu filho a ler com confiança, de forma leve e sem frustrações
         </h2>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Empieza hoy a cuidar mejor los factores que sí puedes controlar.
+        <p className="mt-2.5 text-[15px] text-muted-foreground">
+          Comece hoje com o Método Leitura em Blocos™ e veja a diferença nas próximas semanas.
         </p>
 
-        <div className="mt-7 grid gap-3 sm:grid-cols-2">
+        <div className="mt-6 flex flex-col gap-3">
           <button
             type="button"
-            onClick={() => scrollToPlan("plan-essential")}
-            className="card-lift order-2 w-full rounded-2xl border border-primary/40 bg-card p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 sm:order-1"
+            onClick={() => scrollToPlan("plan-basico")}
+            className="card-lift w-full rounded-2xl border-2 border-primary/25 bg-card p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
           >
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">
-              Plan Essential
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-primary">
+              Kit Leitura em Blocos™
             </p>
-            <p className="text-xs text-muted-foreground line-through">{price.essential.before}</p>
-            <p className="mt-1 text-4xl font-display">{price.essential.now}</p>
-            {price.isLocal && (
-              <p className="mt-0.5 text-[10px] text-muted-foreground">
-                Precio base: {price.essential.usdNow}
-              </p>
-            )}
+            <p className="text-xs text-muted-foreground line-through">R$97,90</p>
+            <p className="mt-1 text-3xl font-display">R$34,35</p>
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
-              <Check className="h-3.5 w-3.5 text-primary" /> Los fundamentos para empezar
+              <Check className="h-3.5 w-3.5 text-primary" /> O essencial em 6 etapas
             </p>
           </button>
           <button
             type="button"
-            onClick={() => scrollToPlan("plan-pro")}
-            className="card-lift order-1 w-full rounded-2xl border-2 border-[var(--gold)] bg-[var(--navy)] p-5 text-left shadow-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--gold)]/60 sm:order-2"
+            onClick={() => scrollToPlan("plan-premium")}
+            className="card-lift w-full rounded-2xl border-2 border-primary bg-card p-4 text-left shadow-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
           >
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[var(--gold)]">
-              Plan PRO · Recomendado
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-primary">
+              Kit Premium · Mais escolhido
             </p>
-            <p className="text-xs text-muted-foreground line-through">{price.pro.before}</p>
-            <p className="mt-1 text-4xl font-display text-gold-gradient">{price.pro.now}</p>
-            {price.isLocal && (
-              <p className="mt-0.5 text-[10px] text-muted-foreground">Precio base: {price.pro.usdNow}</p>
-            )}
+            <p className="text-xs text-muted-foreground line-through">R$79,90</p>
+            <p className="mt-1 text-3xl font-display text-primary-gradient">R$43,90</p>
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
-              <Check className="h-3.5 w-3.5 text-[var(--gold)]" /> La estructura completa
+              <Check className="h-3.5 w-3.5 text-primary" /> +1.000 atividades extras
             </p>
           </button>
         </div>
 
-        {price.isLocal && (
-          <div className="mx-auto mt-3 flex w-fit max-w-full items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-[11px] text-muted-foreground">
-            <Info className="h-3.5 w-3.5 shrink-0 text-primary" />
-            <span>
-              <span className="font-bold text-primary">Precio aproximado.</span> La diferencia suele ser
-              mínima.
-            </span>
-          </div>
-        )}
-
         <a
-          href="#planes"
-          className="sheen-gold mt-7 flex w-full items-center justify-center rounded-xl bg-gold-gradient px-6 py-4 text-base font-extrabold uppercase tracking-wide text-gold-foreground shadow-gold active:scale-[0.98]"
+          href="#oferta"
+          className="sheen-cta mt-6 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-6 py-4 text-base font-extrabold uppercase tracking-wide text-cta-foreground shadow-cta active:scale-[0.98]"
         >
-          <span className="relative z-10">Quiero empezar ahora</span>
+          <span className="relative z-10">Quero começar agora</span>
         </a>
       </div>
     </section>
@@ -78,21 +57,21 @@ export function FinalCta() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/60 px-5 py-8 text-center">
+    <footer className="border-t border-border px-4 py-8 text-center">
       <p className="text-xs text-muted-foreground">
-        © 2026 Método Altura Máxima. Todos los derechos reservados.
+        © 2026 Método Leitura em Blocos™. Todos os direitos reservados.
       </p>
       <p className="mt-2 text-xs text-muted-foreground">
-        <a href="#planes" className="hover:text-foreground">
-          Términos de Uso
+        <a href="#oferta" className="hover:text-foreground">
+          Termos de Uso
         </a>{" "}
         ·{" "}
-        <a href="#planes" className="hover:text-foreground">
-          Política de Privacidad
+        <a href="#oferta" className="hover:text-foreground">
+          Política de Privacidade
         </a>{" "}
         ·{" "}
-        <a href="#planes" className="hover:text-foreground">
-          Contacto
+        <a href="#oferta" className="hover:text-foreground">
+          Contato
         </a>
       </p>
     </footer>
@@ -111,15 +90,16 @@ export function StickyBar() {
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-50 border-t border-border/60 bg-[oklch(0.12_0.02_264)]/95 p-3 backdrop-blur transition-transform duration-300 ${
+      className={`fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 p-3 backdrop-blur transition-transform duration-300 ${
         show ? "translate-y-0" : "translate-y-full"
       }`}
+      style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
     >
       <a
-        href="#planes"
-        className="pulse-cta glow-blue mx-auto flex max-w-md items-center justify-center rounded-xl bg-blue-gradient px-6 py-3.5 text-sm font-extrabold uppercase tracking-wide text-primary-foreground shadow-blue"
+        href="#oferta"
+        className="pulse-cta glow-cta mx-auto flex max-w-md items-center justify-center rounded-2xl bg-cta-gradient px-6 py-3.5 text-sm font-extrabold uppercase tracking-wide text-cta-foreground shadow-cta"
       >
-        Ver planes
+        Quero começar agora
       </a>
     </div>
   );
