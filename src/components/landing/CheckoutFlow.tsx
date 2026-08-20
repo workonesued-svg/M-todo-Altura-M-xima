@@ -11,7 +11,7 @@ const premiumBenefits = [
   "Arquivos digitais para acessar, baixar e imprimir",
 ];
 
-function PremiumOfferModal({ open }: { open: boolean }) {
+function PremiumOfferModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const primaryCtaRef = useRef<HTMLAnchorElement>(null);
 
@@ -26,7 +26,7 @@ function PremiumOfferModal({ open }: { open: boolean }) {
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        window.location.assign(checkoutLinks.basico);
+        onClose();
         return;
       }
 
@@ -57,7 +57,7 @@ function PremiumOfferModal({ open }: { open: boolean }) {
       document.removeEventListener("keydown", handleKeyDown);
       previousFocus?.focus();
     };
-  }, [open]);
+  }, [onClose, open]);
 
   if (!open) return null;
 
@@ -71,14 +71,15 @@ function PremiumOfferModal({ open }: { open: boolean }) {
         aria-describedby="premium-offer-description"
         className="relative max-h-[calc(100dvh-1.5rem)] w-full max-w-3xl overflow-y-auto rounded-[1.75rem] border-2 border-sun/60 bg-surface-warm shadow-2xl sm:max-h-[calc(100dvh-3rem)] sm:rounded-[2rem]"
       >
-        <a
-          href={checkoutLinks.basico}
-          data-checkout="basico-modal-fechar"
-          aria-label="Recusar a oferta e continuar com o Kit Básico"
+        <button
+          type="button"
+          onClick={onClose}
+          data-modal-action="fechar"
+          aria-label="Fechar a oferta e voltar à página"
           className="absolute right-3 top-3 z-10 grid h-11 w-11 place-items-center rounded-full border border-border bg-card text-foreground shadow-card transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:right-4 sm:top-4"
         >
           <X className="h-5 w-5" />
-        </a>
+        </button>
 
         <div className="bg-hero-dots px-4 pb-5 pt-5 sm:px-7 sm:pb-7 sm:pt-7">
           <div className="pr-12 text-center sm:pr-0">
@@ -188,12 +189,13 @@ function PremiumOfferModal({ open }: { open: boolean }) {
 export function CheckoutFlowProvider({ children }: { children: ReactNode }) {
   const [isBasicOfferOpen, setIsBasicOfferOpen] = useState(false);
   const openBasicOffer = useCallback(() => setIsBasicOfferOpen(true), []);
+  const closeBasicOffer = useCallback(() => setIsBasicOfferOpen(false), []);
   const checkoutFlowValue = useMemo(() => ({ openBasicOffer }), [openBasicOffer]);
 
   return (
     <CheckoutFlowContext.Provider value={checkoutFlowValue}>
       {children}
-      <PremiumOfferModal open={isBasicOfferOpen} />
+      <PremiumOfferModal open={isBasicOfferOpen} onClose={closeBasicOffer} />
     </CheckoutFlowContext.Provider>
   );
 }

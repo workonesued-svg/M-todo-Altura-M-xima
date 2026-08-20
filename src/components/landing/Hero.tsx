@@ -1,5 +1,4 @@
 import { LockKeyhole, ShieldCheck, Star, Zap } from "lucide-react";
-import { useCheckoutFlow } from "@/components/landing/checkout-flow-context";
 
 const trustProfiles = [
   "/images/professora-perfil-1.png",
@@ -9,8 +8,6 @@ const trustProfiles = [
 ];
 
 export function Hero() {
-  const { openBasicOffer } = useCheckoutFlow();
-
   return (
     <header className="bg-hero-dots px-4 pb-8 pt-6">
       <div className="mx-auto max-w-md">
@@ -43,14 +40,12 @@ export function Hero() {
           <p className="mt-1 text-xs text-muted-foreground">Pagamento único · acesso imediato</p>
         </div>
 
-        <button
-          type="button"
-          onClick={openBasicOffer}
-          data-checkout-trigger="basico-hero"
+        <a
+          href="#oferta"
           className="cta-single-line pulse-cta glow-cta mt-5 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-2 py-4 font-extrabold uppercase text-cta-foreground shadow-cta active:scale-[0.98] sm:px-6"
         >
           Quero garantir meu kit agora
-        </button>
+        </a>
 
         <div className="mx-auto mt-6 max-w-sm px-1 py-3">
           <div className="grid grid-cols-3 items-center gap-1 text-center text-[10px] font-bold text-muted-foreground sm:text-xs">
