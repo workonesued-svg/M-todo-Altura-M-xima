@@ -110,54 +110,62 @@ function PremiumOfferModal({ open, onClose }: { open: boolean; onClose: () => vo
         </button>
 
         <div className="relative flex min-h-0 flex-col items-center px-3 pb-3 pt-3 text-center sm:px-6 sm:pb-5 sm:pt-4">
-          <div className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-[#ffe395] bg-gradient-to-b from-[#ffd968] to-[#ffb90b] px-5 py-1.5 text-sm font-black uppercase tracking-[0.02em] text-[#082a5b] shadow-[0_6px_16px_-8px_rgba(180,110,0,0.9)] sm:text-lg">
-            <Flame className="h-5 w-5 fill-[#082a5b]" /> Oferta especial
-          </div>
+          <div className="flex w-full items-stretch justify-center gap-1.5 pr-10 sm:gap-2 sm:pr-12">
+            <div className="flex min-w-0 flex-[0.9] items-center justify-center gap-1 rounded-xl border border-[#ffe395] bg-gradient-to-b from-[#ffd968] to-[#ffb90b] px-2 py-1.5 text-[9px] font-black uppercase leading-tight tracking-[0.02em] text-[#082a5b] shadow-[0_6px_16px_-8px_rgba(180,110,0,0.9)] sm:max-w-40 sm:text-xs">
+              <Flame className="h-4 w-4 shrink-0 fill-[#082a5b]" />
+              <span>Oferta especial</span>
+            </div>
 
-          <div className="mt-2 flex items-center gap-2.5 rounded-2xl border border-white/20 bg-gradient-to-b from-[#173d72] to-[#061f49] px-4 py-2 text-white shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_8px_20px_-12px_rgba(0,24,64,0.9)] sm:px-5">
-            <Clock3 className="h-8 w-8 shrink-0 text-[#ffbd16] sm:h-10 sm:w-10" />
-            <div className="text-left">
-              <p className="text-[9px] font-extrabold uppercase leading-none tracking-[0.05em] sm:text-[10px]">
-                Esta oferta expira em
-              </p>
-              <time
-                dateTime={`PT${minutes}M${seconds}S`}
-                aria-label={`Restam ${minutes} minutos e ${seconds} segundos`}
-                className="mt-0.5 block font-mono text-[1.9rem] font-black leading-none tracking-[-0.05em] tabular-nums sm:text-[2.25rem]"
-              >
-                {minutes}:{seconds}
-              </time>
+            <div className="flex min-w-0 flex-[1.45] items-center justify-center gap-1.5 rounded-xl border border-white/20 bg-gradient-to-b from-[#173d72] to-[#061f49] px-2 py-1.5 text-white shadow-[inset_0_1px_2px_rgba(255,255,255,0.25),0_8px_20px_-12px_rgba(0,24,64,0.9)] sm:max-w-56 sm:px-3">
+              <Clock3 className="h-6 w-6 shrink-0 text-[#ffbd16] sm:h-7 sm:w-7" />
+              <div className="text-left">
+                <p className="text-[7px] font-extrabold uppercase leading-none tracking-[0.04em] sm:text-[8px]">
+                  Esta oferta expira em
+                </p>
+                <time
+                  dateTime={`PT${minutes}M${seconds}S`}
+                  aria-label={`Restam ${minutes} minutos e ${seconds} segundos`}
+                  className="mt-0.5 block font-mono text-[1.35rem] font-black leading-none tracking-[-0.05em] tabular-nums sm:text-[1.6rem]"
+                >
+                  {minutes}:{seconds}
+                </time>
+              </div>
             </div>
           </div>
 
           <h2
             id="premium-offer-title"
-            className="mx-auto mt-2 max-w-md text-[clamp(1.4rem,6vw,2.35rem)] font-black uppercase leading-[0.98] tracking-[-0.035em] text-[#082a5b]"
+            className="mx-auto mt-1.5 max-w-md text-[clamp(1.35rem,5.8vw,2.25rem)] font-black uppercase leading-[0.98] tracking-[-0.035em] text-[#082a5b]"
           >
             Esta é a sua <span className="block text-[#f5a900]">melhor oportunidade!</span>
           </h2>
 
           <p
             id="premium-offer-description"
-            className="mx-auto mt-1.5 max-w-sm text-[10px] font-bold leading-snug text-[#445269] sm:text-xs"
+            className="mx-auto mt-1 max-w-sm text-[10px] font-bold leading-snug text-[#445269] sm:text-xs"
           >
             Você já garantiu o Básico. Por apenas R$9,10 a mais, desbloqueie agora o Kit Premium
             completo.
           </p>
 
-          <div className="mt-2 flex w-full max-w-sm items-stretch justify-center gap-1.5 sm:gap-2">
-            <div className="flex min-w-0 flex-1 flex-col justify-center rounded-xl border border-slate-200 bg-white px-2 py-1.5 shadow-sm">
-              <p className="text-[9px] font-extrabold uppercase text-slate-500">De</p>
-              <p className="text-base font-black leading-none text-slate-500 line-through decoration-2 decoration-red-500 sm:text-lg">
-                R$37,90
+          <div className="mt-1.5 flex w-full max-w-sm items-stretch justify-center gap-0.5">
+            <div className="flex min-w-0 flex-1 flex-col justify-center rounded-xl border border-slate-200 bg-white px-2 py-1 shadow-sm">
+              <p className="text-[7px] font-black uppercase leading-none tracking-[0.03em] text-[#082a5b] sm:text-[8px]">
+                Kit Premium completo
               </p>
+              <div className="mt-0.5 flex items-baseline justify-center gap-1">
+                <span className="text-[8px] font-extrabold uppercase text-slate-500">De</span>
+                <span className="text-base font-black leading-none text-slate-500 line-through decoration-2 decoration-red-500 sm:text-lg">
+                  R$37,90
+                </span>
+              </div>
             </div>
-            <div className="grid shrink-0 place-items-center rounded-full bg-[#082a5b] px-2 text-[9px] font-black uppercase leading-tight text-white sm:px-3 sm:text-[10px]">
+            <div className="relative z-10 -mr-2 grid shrink-0 place-items-center rounded-full bg-[#082a5b] px-2 text-[8px] font-black uppercase leading-tight text-white shadow-sm sm:-mr-2.5 sm:px-3 sm:text-[9px]">
               Por
               <br />
               apenas
             </div>
-            <div className="flex min-w-0 flex-[1.35] items-center justify-center rounded-xl border border-[#ffbd16] bg-gradient-to-b from-[#ffe17b] to-[#ffb70e] px-2 py-1.5 text-[#082a5b] shadow-[0_7px_16px_-10px_rgba(170,105,0,0.9)]">
+            <div className="flex min-w-0 flex-[1.35] items-center justify-center rounded-xl border border-[#ffbd16] bg-gradient-to-b from-[#ffe17b] to-[#ffb70e] py-1 pl-3 pr-2 text-[#082a5b] shadow-[0_7px_16px_-10px_rgba(170,105,0,0.9)]">
               <span className="mr-1 text-sm font-black sm:text-base">R$</span>
               <span className="text-[2rem] font-black leading-none tracking-[-0.055em] sm:text-[2.45rem]">
                 27
@@ -165,14 +173,11 @@ function PremiumOfferModal({ open, onClose }: { open: boolean; onClose: () => vo
             </div>
           </div>
 
-          <div className="relative mt-1.5 w-full">
-            <span className="absolute left-0 top-1 z-10 rounded-full bg-[#082a5b] px-2 py-1 text-[8px] font-black uppercase tracking-[0.04em] text-white shadow-sm sm:left-2 sm:text-[9px]">
-              Kit Premium completo
-            </span>
+          <div className="relative z-10 mt-2 w-[calc(100%+0.25rem)] scale-[1.015] overflow-hidden rounded-[1.35rem] border-2 border-white bg-white/95 p-1.5 shadow-[0_20px_32px_-14px_rgba(8,42,91,0.55),0_0_0_1px_rgba(255,190,20,0.28)] sm:w-full sm:rounded-[1.6rem] sm:p-2">
             <img
               src="/images/kit-leitura-em-blocos-premium.png"
               alt="Kit Premium Método Leitura em Blocos com seis apostilas, bônus e materiais complementares"
-              className="mx-auto h-[clamp(5.5rem,22dvh,12rem)] w-full object-contain drop-shadow-[0_12px_14px_rgba(20,37,64,0.2)]"
+              className="mx-auto h-[clamp(7.5rem,27dvh,14rem)] w-full rounded-[1rem] object-contain"
             />
           </div>
 
