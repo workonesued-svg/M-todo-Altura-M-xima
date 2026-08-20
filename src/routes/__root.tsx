@@ -87,6 +87,20 @@ export const Route = createRootRouteWithContext<Record<string, never>>()({
     ],
     links: [
       {
+        rel: "preload",
+        href: "/fonts/nunito-latin.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: "/fonts/baloo-2-latin.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
         rel: "stylesheet",
         href: appCss,
       },
