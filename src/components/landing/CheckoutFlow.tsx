@@ -1,10 +1,24 @@
-import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  type MouseEvent,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { ArrowRight, Clock3, Flame, ShieldCheck, ShoppingCart, X } from "lucide-react";
 import { CheckoutFlowContext } from "@/components/landing/checkout-flow-context";
 import { checkoutLinks } from "@/lib/checkout";
 import { trackInitiateCheckout } from "@/lib/tracking";
 
 const OFFER_DURATION_SECONDS = 8 * 60 + 30;
+
+function continueToCheckout(event: MouseEvent<HTMLAnchorElement>) {
+  event.preventDefault();
+  trackInitiateCheckout();
+  window.location.assign(event.currentTarget.href);
+}
 
 function PremiumOfferModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -193,7 +207,7 @@ function PremiumOfferModal({ open, onClose }: { open: boolean; onClose: () => vo
           <a
             ref={primaryCtaRef}
             href={checkoutLinks.premiumOferta}
-            onClick={trackInitiateCheckout}
+            onClick={continueToCheckout}
             suppressHydrationWarning
             data-checkout="premium-oferta-27"
             className="premium-offer-cta sheen-cta mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border border-[#ffad00] bg-gradient-to-b from-[#ffdc67] via-[#ffc42c] to-[#ffb10a] px-3 py-2 text-center text-[11px] font-black uppercase leading-tight text-[#082a5b] shadow-[0_12px_24px_-12px_rgba(190,115,0,0.95)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffb400] focus-visible:ring-offset-2 sm:min-h-14 sm:text-sm"
@@ -206,7 +220,7 @@ function PremiumOfferModal({ open, onClose }: { open: boolean; onClose: () => vo
 
           <a
             href={checkoutLinks.basico}
-            onClick={trackInitiateCheckout}
+            onClick={continueToCheckout}
             suppressHydrationWarning
             data-checkout="basico-modal-recusar"
             className="mt-1.5 flex min-h-10 w-full items-center justify-center gap-2 rounded-2xl border border-slate-300 bg-gradient-to-b from-white to-slate-100 px-3 py-1.5 text-center text-[9px] font-extrabold uppercase leading-tight text-[#17365f] shadow-sm hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#082a5b] sm:text-[11px]"
