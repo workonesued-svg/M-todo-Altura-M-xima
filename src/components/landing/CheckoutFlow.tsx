@@ -2,6 +2,7 @@ import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } fro
 import { Check, ShieldCheck, Sparkles, X } from "lucide-react";
 import { CheckoutFlowContext } from "@/components/landing/checkout-flow-context";
 import { checkoutLinks } from "@/lib/checkout";
+import { trackInitiateCheckout } from "@/lib/tracking";
 
 const premiumBenefits = [
   "Tudo do Kit Básico",
@@ -141,6 +142,8 @@ function PremiumOfferModal({ open, onClose }: { open: boolean; onClose: () => vo
           <a
             ref={primaryCtaRef}
             href={checkoutLinks.premiumOferta}
+            onClick={trackInitiateCheckout}
+            suppressHydrationWarning
             data-checkout="premium-oferta-27"
             className="sheen-cta mt-3 flex min-h-12 w-full items-center justify-center rounded-xl bg-cta-gradient px-3 py-2.5 text-center text-[12px] font-extrabold uppercase leading-tight text-cta-foreground shadow-cta transition-transform hover:scale-[1.01] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta focus-visible:ring-offset-2 sm:text-sm"
           >
@@ -153,6 +156,8 @@ function PremiumOfferModal({ open, onClose }: { open: boolean; onClose: () => vo
 
           <a
             href={checkoutLinks.basico}
+            onClick={trackInitiateCheckout}
+            suppressHydrationWarning
             data-checkout="basico-modal-recusar"
             className="mt-1.5 block py-1 text-center text-[10px] font-semibold leading-snug text-slate-500 underline decoration-slate-300 underline-offset-4 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >

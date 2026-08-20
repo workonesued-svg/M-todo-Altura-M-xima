@@ -1,6 +1,7 @@
 import { ArrowDown, Check, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { useCheckoutFlow } from "@/components/landing/checkout-flow-context";
 import { checkoutLinks } from "@/lib/checkout";
+import { trackInitiateCheckout } from "@/lib/tracking";
 
 const basicItems = [
   "Textos organizados em blocos progressivos",
@@ -183,6 +184,8 @@ export function Offer() {
 
             <a
               href={checkoutLinks.premium}
+              onClick={trackInitiateCheckout}
+              suppressHydrationWarning
               data-checkout="premium-oferta"
               className="cta-single-line sheen-cta mt-4 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-2 py-4 text-center font-extrabold uppercase text-cta-foreground shadow-cta active:scale-[0.98] sm:px-6"
             >
