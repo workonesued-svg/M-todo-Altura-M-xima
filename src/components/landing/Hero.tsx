@@ -1,10 +1,10 @@
 import { LockKeyhole, ShieldCheck, Star, Zap } from "lucide-react";
 
 const trustProfiles = [
-  "/images/professora-perfil-1.png",
-  "/images/professor-perfil-2.png",
-  "/images/professora-perfil-3.png",
-  "/images/professora-perfil-4.png",
+  "/images/professora-perfil-1-96.webp",
+  "/images/professor-perfil-2-96.webp",
+  "/images/professora-perfil-3-96.webp",
+  "/images/professora-perfil-4-96.webp",
 ];
 
 export function Hero() {
@@ -22,11 +22,14 @@ export function Hero() {
 
         <div className="relative mx-auto mt-5 w-full max-w-sm overflow-hidden rounded-2xl border border-primary/20 bg-card shadow-card">
           <img
-            src="/images/metodo-leitura-em-blocos-kit.png"
+            src="/images/metodo-leitura-em-blocos-kit-800.webp"
+            srcSet="/images/metodo-leitura-em-blocos-kit-480.webp 480w, /images/metodo-leitura-em-blocos-kit-800.webp 800w"
+            sizes="(max-width: 448px) calc(100vw - 32px), 384px"
             alt="Kit Método Leitura em Blocos com seis apostilas e seis materiais complementares"
-            width={1254}
-            height={1254}
+            width={800}
+            height={800}
             fetchPriority="high"
+            decoding="async"
             className="aspect-square w-full object-cover"
           />
         </div>
@@ -86,9 +89,11 @@ export function Hero() {
                   key={profile}
                   src={profile}
                   alt=""
-                  width={36}
-                  height={36}
+                  width={96}
+                  height={96}
                   loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                   className="h-9 w-9 rounded-full border-2 border-card bg-surface-warm object-cover shadow-sm"
                 />
               ))}

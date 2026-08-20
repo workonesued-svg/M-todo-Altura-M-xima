@@ -175,8 +175,13 @@ function PremiumOfferModal({ open, onClose }: { open: boolean; onClose: () => vo
 
           <div className="relative z-10 mt-2 w-[calc(100%+0.25rem)] scale-[1.015] overflow-hidden rounded-[1.35rem] border-2 border-white bg-white/95 p-1.5 shadow-[0_20px_32px_-14px_rgba(8,42,91,0.55),0_0_0_1px_rgba(255,190,20,0.28)] sm:w-full sm:rounded-[1.6rem] sm:p-2">
             <img
-              src="/images/kit-leitura-em-blocos-premium.png"
+              src="/images/kit-leitura-em-blocos-premium-900.webp"
+              srcSet="/images/kit-leitura-em-blocos-premium-480.webp 480w, /images/kit-leitura-em-blocos-premium-900.webp 900w"
+              sizes="(max-width: 496px) calc(100vw - 32px), 448px"
               alt="Kit Premium Método Leitura em Blocos com seis apostilas, bônus e materiais complementares"
+              width={900}
+              height={900}
+              decoding="async"
               className="mx-auto h-[clamp(7.5rem,27dvh,14rem)] w-full rounded-[1rem] object-contain"
             />
           </div>

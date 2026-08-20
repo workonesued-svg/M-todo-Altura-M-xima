@@ -85,11 +85,15 @@ export function Offer() {
 
             <div className="mx-auto mt-4 max-w-[17rem] overflow-hidden rounded-2xl border border-info/15 bg-surface-blue p-2 shadow-card">
               <img
-                src="/images/metodo-leitura-em-blocos-kit.png"
+                src="/images/metodo-leitura-em-blocos-kit-480.webp"
+                srcSet="/images/metodo-leitura-em-blocos-kit-480.webp 480w, /images/metodo-leitura-em-blocos-kit-800.webp 800w"
+                sizes="272px"
                 alt="Kit Método Leitura em Blocos com seis apostilas e materiais complementares"
-                width={1254}
-                height={1254}
+                width={800}
+                height={800}
                 loading="lazy"
+                decoding="async"
+                fetchPriority="low"
                 className="aspect-square w-full rounded-xl object-cover"
               />
             </div>
@@ -153,11 +157,15 @@ export function Offer() {
 
             <div className="mx-auto mt-4 max-w-[17rem] overflow-hidden rounded-2xl border border-primary/20 bg-primary/8 p-2 shadow-card">
               <img
-                src="/images/kit-leitura-em-blocos-premium.png"
+                src="/images/kit-leitura-em-blocos-premium-480.webp"
+                srcSet="/images/kit-leitura-em-blocos-premium-480.webp 480w, /images/kit-leitura-em-blocos-premium-900.webp 900w"
+                sizes="272px"
                 alt="Kit Leitura em Blocos Premium com seis apostilas principais, seis bônus e cinco materiais premium"
-                width={1254}
-                height={1254}
+                width={900}
+                height={900}
                 loading="lazy"
+                decoding="async"
+                fetchPriority="low"
                 className="aspect-square w-full rounded-xl object-cover"
               />
             </div>

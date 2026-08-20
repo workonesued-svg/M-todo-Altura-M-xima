@@ -21,6 +21,15 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [
+      {
+        rel: "preload",
+        href: "/images/metodo-leitura-em-blocos-kit-800.webp",
+        as: "image",
+        type: "image/webp",
+        fetchPriority: "high",
+      },
+    ],
   }),
   component: Index,
 });

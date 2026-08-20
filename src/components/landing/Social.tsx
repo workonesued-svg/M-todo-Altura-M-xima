@@ -21,7 +21,7 @@ const testimonials: Testimonial[] = [
   {
     name: "Camila R.",
     role: "Mãe de aluno",
-    avatar: "/images/professora-perfil-1.png",
+    avatar: "/images/professora-perfil-1-96.webp",
     time: "10:42",
     rating: 5,
     quote:
@@ -30,7 +30,7 @@ const testimonials: Testimonial[] = [
   {
     name: "Marcos T.",
     role: "Professor",
-    avatar: "/images/professor-perfil-2.png",
+    avatar: "/images/professor-perfil-2-96.webp",
     time: "14:18",
     rating: 5,
     quote:
@@ -39,7 +39,7 @@ const testimonials: Testimonial[] = [
   {
     name: "Juliana P.",
     role: "Mãe de aluna",
-    avatar: "/images/professora-perfil-3.png",
+    avatar: "/images/professora-perfil-3-96.webp",
     time: "19:26",
     rating: 5,
     quote:
@@ -240,6 +240,8 @@ export function Testimonials() {
                       width={42}
                       height={42}
                       loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
                       className="h-10 w-10 shrink-0 rounded-full border-2 border-white/70 object-cover"
                     />
                   ) : (
