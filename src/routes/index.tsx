@@ -5,6 +5,7 @@ import { ActivityExamples, Bonuses } from "@/components/landing/Extras";
 import { Offer } from "@/components/landing/Offer";
 import { Testimonials, Guarantee, Faq } from "@/components/landing/Social";
 import { FinalCta, Footer, StickyBar } from "@/components/landing/FinalCta";
+import { CheckoutFlowProvider } from "@/components/landing/CheckoutFlow";
 
 const title = "Método Leitura em Blocos™: Kit de Textos em Blocos para Crianças";
 const description =
@@ -26,19 +27,21 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="overflow-x-hidden pb-20">
-      <Hero />
-      <ActivityExamples />
-      <Problems />
-      <Method />
-      <Bonuses />
-      <Offer />
-      <Testimonials />
-      <Guarantee />
-      <Faq />
-      <FinalCta />
-      <Footer />
-      <StickyBar />
-    </main>
+    <CheckoutFlowProvider>
+      <main className="overflow-x-hidden pb-20">
+        <Hero />
+        <ActivityExamples />
+        <Problems />
+        <Method />
+        <Bonuses />
+        <Offer />
+        <Testimonials />
+        <Guarantee />
+        <Faq />
+        <FinalCta />
+        <Footer />
+        <StickyBar />
+      </main>
+    </CheckoutFlowProvider>
   );
 }

@@ -1,4 +1,6 @@
 import { ArrowDown, Check, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import { useCheckoutFlow } from "@/components/landing/checkout-flow-context";
+import { checkoutLinks } from "@/lib/checkout";
 
 const basicItems = [
   "Textos organizados em blocos progressivos",
@@ -52,6 +54,8 @@ function PurchaseTrust() {
 }
 
 export function Offer() {
+  const { openBasicOffer } = useCheckoutFlow();
+
   return (
     <section id="oferta" className="bg-surface-warm px-4 py-12">
       <div className="mx-auto max-w-md">
@@ -110,12 +114,14 @@ export function Offer() {
               </p>
             </div>
 
-            <a
-              href="#"
+            <button
+              type="button"
+              onClick={openBasicOffer}
+              data-checkout-trigger="basico-oferta"
               className="cta-single-line glow-cta mt-4 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-2 py-4 text-center font-extrabold uppercase text-cta-foreground shadow-cta active:scale-[0.98] sm:px-6"
             >
               Quero adquirir agora
-            </a>
+            </button>
             <PurchaseTrust />
 
             <a
@@ -176,7 +182,8 @@ export function Offer() {
             </div>
 
             <a
-              href="#"
+              href={checkoutLinks.premium}
+              data-checkout="premium-oferta"
               className="cta-single-line sheen-cta mt-4 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-2 py-4 text-center font-extrabold uppercase text-cta-foreground shadow-cta active:scale-[0.98] sm:px-6"
             >
               <span className="relative z-10">Quero o kit premium completo</span>

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
-import { scrollToPlan } from "@/lib/scroll-to-plan";
+import { useCheckoutFlow } from "@/components/landing/checkout-flow-context";
+import { checkoutLinks } from "@/lib/checkout";
 
 export function FinalCta() {
+  const { openBasicOffer } = useCheckoutFlow();
+
   return (
     <section id="final-cta" className="bg-hero-gradient px-4 py-14">
       <div className="mx-auto max-w-md text-center">
@@ -17,7 +20,8 @@ export function FinalCta() {
         <div className="mt-6 flex flex-col gap-3">
           <button
             type="button"
-            onClick={() => scrollToPlan("plan-basico")}
+            onClick={openBasicOffer}
+            data-checkout-trigger="basico-final-card"
             className="card-lift w-full rounded-2xl border-2 border-primary/25 bg-card p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
           >
             <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-primary">
@@ -29,9 +33,9 @@ export function FinalCta() {
               <Check className="h-3.5 w-3.5 text-primary" /> O essencial em 6 etapas
             </p>
           </button>
-          <button
-            type="button"
-            onClick={() => scrollToPlan("plan-premium")}
+          <a
+            href={checkoutLinks.premium}
+            data-checkout="premium-final-card"
             className="card-lift w-full rounded-2xl border-2 border-primary bg-card p-4 text-left shadow-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
           >
             <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-primary">
@@ -42,15 +46,17 @@ export function FinalCta() {
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
               <Check className="h-3.5 w-3.5 text-primary" /> Classes gramaticais e caligrafia
             </p>
-          </button>
+          </a>
         </div>
 
-        <a
-          href="#oferta"
+        <button
+          type="button"
+          onClick={openBasicOffer}
+          data-checkout-trigger="basico-final-cta"
           className="cta-single-line sheen-cta mt-6 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-2 py-4 font-extrabold uppercase text-cta-foreground shadow-cta active:scale-[0.98] sm:px-6"
         >
           <span className="relative z-10">Quero garantir meu kit agora</span>
-        </a>
+        </button>
       </div>
     </section>
   );
@@ -81,6 +87,7 @@ export function Footer() {
 
 export function StickyBar() {
   const [show, setShow] = useState(false);
+  const { openBasicOffer } = useCheckoutFlow();
 
   useEffect(() => {
     let frame: number | null = null;
@@ -121,12 +128,14 @@ export function StickyBar() {
       }`}
       style={{ paddingBottom: "calc(0.75rem + env(safe-area-inset-bottom))" }}
     >
-      <a
-        href="#oferta"
+      <button
+        type="button"
+        onClick={openBasicOffer}
+        data-checkout-trigger="basico-sticky"
         className="cta-single-line pulse-cta glow-cta mx-auto flex max-w-md items-center justify-center rounded-2xl bg-cta-gradient px-2 py-3.5 font-extrabold uppercase text-cta-foreground shadow-cta sm:px-6"
       >
         Quero garantir meu kit agora
-      </a>
+      </button>
     </div>
   );
 }
