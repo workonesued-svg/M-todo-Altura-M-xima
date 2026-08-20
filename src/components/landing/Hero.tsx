@@ -1,18 +1,17 @@
-import { GraduationCap, ShieldCheck, Star, Zap, BookOpenText } from "lucide-react";
-import { Placeholder } from "@/components/landing/Placeholder";
+import { LockKeyhole, ShieldCheck, Star, Zap } from "lucide-react";
+
+const trustProfiles = [
+  "/images/professora-perfil-1-96.webp",
+  "/images/professor-perfil-2-96.webp",
+  "/images/professora-perfil-3-96.webp",
+  "/images/professora-perfil-4-96.webp",
+];
 
 export function Hero() {
   return (
-    <header className="bg-hero-gradient px-4 pb-8 pt-6">
+    <header className="bg-hero-dots px-4 pb-8 pt-6">
       <div className="mx-auto max-w-md">
-        <div className="flex justify-center px-1">
-          <span className="inline-flex max-w-full items-center gap-1 whitespace-nowrap rounded-xl border border-primary/30 bg-primary/10 px-2 py-1.5 text-[9.5px] font-extrabold text-primary">
-            <GraduationCap className="h-3.5 w-3.5 shrink-0" />
-            Da Educação Infantil ao 5º ano, alinhado à BNCC
-          </span>
-        </div>
-
-        <h1 className="mt-4 text-center text-[1.9rem] leading-[1.12] font-extrabold text-foreground sm:text-4xl">
+        <h1 className="mt-2 text-center text-[1.9rem] leading-[1.12] font-extrabold text-foreground sm:text-4xl">
           Ajude seu filho ou aluno a ler, entender e{" "}
           <span className="text-info-gradient">interpretar textos</span> com leveza
         </h1>
@@ -21,43 +20,89 @@ export function Hero() {
           Do jeito que toda criança merece aprender: leve, divertido e sem frustração.
         </p>
 
-        <div className="relative mx-auto mt-5 w-full max-w-[280px]">
-          <Placeholder
-            icon={BookOpenText}
-            label="Kit Leitura em Blocos™"
-            variant="primary"
-            aspect="aspect-[4/5]"
-            className="shadow-card"
-            iconClassName="h-14 w-14"
+        <div className="relative mx-auto mt-5 w-full max-w-sm overflow-hidden rounded-2xl border border-primary/20 bg-card shadow-card">
+          <img
+            src="/images/metodo-leitura-em-blocos-kit-800.webp"
+            srcSet="/images/metodo-leitura-em-blocos-kit-480.webp 480w, /images/metodo-leitura-em-blocos-kit-800.webp 800w"
+            sizes="(max-width: 448px) calc(100vw - 32px), 384px"
+            alt="Kit Método Leitura em Blocos com seis apostilas e seis materiais complementares"
+            width={800}
+            height={800}
+            fetchPriority="high"
+            decoding="async"
+            className="aspect-square w-full object-cover"
           />
         </div>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-muted-foreground">
-            De <span className="line-through decoration-destructive/70 decoration-2">R$97,90</span>{" "}
+            De <span className="line-through decoration-destructive/70 decoration-2">R$67,90</span>{" "}
             por apenas
           </p>
-          <p className="text-5xl font-display leading-none text-primary-gradient">R$34,35</p>
+          <p className="text-5xl font-display leading-none text-primary-gradient">R$17,90</p>
           <p className="mt-1 text-xs text-muted-foreground">Pagamento único · acesso imediato</p>
         </div>
 
         <a
           href="#oferta"
-          className="pulse-cta glow-cta mt-5 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-6 py-4 text-base font-extrabold uppercase tracking-wide text-cta-foreground shadow-cta active:scale-[0.98]"
+          className="cta-single-line pulse-cta glow-cta mt-5 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-2 py-4 font-extrabold uppercase text-cta-foreground shadow-cta active:scale-[0.98] sm:px-6"
         >
-          Quero começar agora
+          Quero garantir meu kit agora
         </a>
 
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-xs font-semibold text-muted-foreground">
-          <span className="inline-flex items-center gap-1.5">
-            <Zap className="h-3.5 w-3.5 text-primary" /> Acesso imediato
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Pagamento seguro
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Star className="h-3.5 w-3.5 fill-current text-sun" /> 4.9/5 de avaliação
-          </span>
+        <div className="mx-auto mt-6 max-w-sm px-1 py-3">
+          <div className="grid grid-cols-3 items-center gap-1 text-center text-[10px] font-bold text-muted-foreground sm:text-xs">
+            <span className="inline-flex items-center justify-center gap-1">
+              <Zap className="h-3.5 w-3.5 shrink-0 fill-current text-sun" />
+              Acesso imediato
+            </span>
+            <span className="inline-flex items-center justify-center gap-1">
+              <LockKeyhole className="h-3.5 w-3.5 shrink-0 text-info" />
+              Pagamento seguro
+            </span>
+            <span className="inline-flex items-center justify-center gap-1">
+              <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-cta" />
+              Garantia de 7 dias
+            </span>
+          </div>
+
+          <div className="mx-auto mt-4 max-w-sm rounded-[2rem] border border-info/15 bg-card/95 px-6 py-5 text-center shadow-card">
+            <div
+              role="img"
+              aria-label="Cinco de cinco estrelas"
+              className="flex justify-center gap-0.5 text-sun"
+            >
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Star key={index} className="h-4 w-4 fill-current" />
+              ))}
+            </div>
+            <p className="mx-auto mt-2 max-w-[17rem] text-sm font-extrabold leading-snug text-foreground">
+              Mais de 1.500 professores e pais já adquiriram e recomendam esse material
+            </p>
+            <div
+              role="img"
+              aria-label="Fotos de professores que recomendam o material"
+              className="mt-3 flex justify-center -space-x-2"
+            >
+              {trustProfiles.map((profile) => (
+                <img
+                  key={profile}
+                  src={profile}
+                  alt=""
+                  width={96}
+                  height={96}
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
+                  className="h-9 w-9 rounded-full border-2 border-card bg-surface-warm object-cover shadow-sm"
+                />
+              ))}
+            </div>
+          </div>
+
+          <h2 className="mx-auto mt-5 max-w-xs text-center text-lg leading-tight font-extrabold sm:text-xl">
+            Nosso kit de textos em blocos foi desenvolvido por psicopedagogos.
+          </h2>
         </div>
       </div>
     </header>

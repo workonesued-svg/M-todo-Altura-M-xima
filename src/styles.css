@@ -2,6 +2,22 @@
 @source "../src";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/nunito-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Baloo 2";
+  font-style: normal;
+  font-weight: 500 800;
+  font-display: swap;
+  src: url("/fonts/baloo-2-latin.woff2") format("woff2");
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -34,7 +50,11 @@
   --color-cta-foreground: var(--cta-foreground);
   --color-sun: var(--sun);
   --color-sun-foreground: var(--sun-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
   --color-surface: var(--surface);
+  --color-surface-warm: var(--surface-warm);
+  --color-surface-blue: var(--surface-blue);
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Baloo 2", "Nunito", sans-serif;
 }
@@ -64,7 +84,11 @@
   --cta-foreground: oklch(0.99 0 0);
   --sun: oklch(0.83 0.15 85);
   --sun-foreground: oklch(0.3 0.05 60);
+  --info: oklch(0.55 0.17 254);
+  --info-foreground: oklch(0.99 0 0);
   --surface: oklch(0.965 0.018 78);
+  --surface-warm: oklch(0.982 0.019 78);
+  --surface-blue: oklch(0.972 0.022 247);
 
   --gradient-hero:
     radial-gradient(130% 80% at 50% 0%, oklch(0.9 0.08 70 / 0.65), transparent 62%),
@@ -107,6 +131,17 @@
 
 @utility bg-hero-gradient {
   background-image: var(--gradient-hero);
+}
+
+@utility bg-hero-dots {
+  background-color: var(--surface-warm);
+  background-image:
+    radial-gradient(circle, oklch(0.62 0.14 250 / 0.2) 1px, transparent 1.2px), var(--gradient-hero);
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-size:
+    18px 18px,
+    100% 100%,
+    100% 100%;
 }
 
 @utility bg-primary-gradient {
@@ -154,6 +189,67 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+@utility trust-dots {
+  background-image: radial-gradient(circle, oklch(0.62 0.14 250 / 0.2) 1px, transparent 1.2px);
+  background-size: 18px 18px;
+}
+
+.chat-conversation-bg {
+  background-color: #e8f1ea;
+  background-image:
+    radial-gradient(circle at 20% 25%, rgb(7 94 84 / 7%) 1.5px, transparent 1.8px),
+    radial-gradient(circle at 75% 70%, rgb(7 94 84 / 6%) 1.5px, transparent 1.8px);
+  background-size:
+    24px 24px,
+    30px 30px;
+}
+
+@keyframes activity-marquee-right {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.activity-marquee-track {
+  animation: activity-marquee-right 20s linear infinite;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.cta-single-line {
+  max-width: 100%;
+  font-size: clamp(0.68rem, 3.45vw, 1rem);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.offer-trust-single-line {
+  max-width: 100%;
+  font-size: clamp(0.36rem, 1.9vw, 0.625rem);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.bonus-total-single-line {
+  max-width: 100%;
+  font-size: clamp(0.5rem, 2.75vw, 0.875rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.problems-subtitle-single-line {
+  max-width: 100%;
+  font-size: clamp(0.44rem, 2.45vw, 0.9375rem);
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
 }
 
 /* --- Efectos suaves --- */
@@ -228,6 +324,35 @@
   }
 }
 
+@keyframes premium-offer-pulse {
+  0%,
+  100% {
+    box-shadow: 0 12px 24px -12px rgb(190 115 0 / 0.85);
+    transform: translateZ(0) scale(1);
+  }
+  50% {
+    box-shadow:
+      0 16px 30px -10px rgb(190 115 0 / 0.95),
+      0 0 0 4px rgb(255 188 22 / 0.2);
+    transform: translateZ(0) scale(1.012);
+  }
+}
+
+@utility premium-offer-cta {
+  animation: premium-offer-pulse 2.4s ease-in-out infinite;
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.25s ease,
+    filter 0.3s ease;
+  &:hover {
+    box-shadow:
+      0 18px 34px -10px rgb(190 115 0 / 0.95),
+      0 0 0 3px rgb(255 188 22 / 0.24);
+    filter: brightness(1.04);
+    transform: translateY(-1px);
+  }
+}
+
 @utility card-lift {
   transition:
     transform 0.35s ease,
@@ -277,6 +402,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .pulse-cta,
+  .premium-offer-cta,
   .sheen-cta::after {
     animation: none !important;
   }
@@ -284,5 +410,23 @@
   .highlight-primary,
   .highlight-cta {
     animation: none !important;
+  }
+
+  .activity-marquee-viewport {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .activity-marquee-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .activity-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .activity-marquee-copy {
+    display: none;
   }
 }

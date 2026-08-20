@@ -5,10 +5,11 @@ import { ActivityExamples, Bonuses } from "@/components/landing/Extras";
 import { Offer } from "@/components/landing/Offer";
 import { Testimonials, Guarantee, Faq } from "@/components/landing/Social";
 import { FinalCta, Footer, StickyBar } from "@/components/landing/FinalCta";
+import { CheckoutFlowProvider } from "@/components/landing/CheckoutFlow";
 
-const title = "Método Leitura em Blocos™ — Kit de Textos Fatiados para Crianças";
+const title = "Método Leitura em Blocos™: Kit de Textos em Blocos para Crianças";
 const description =
-  "Ajude seu filho ou aluno a ler, compreender e interpretar textos com leveza. Método em 6 etapas + mais de 2.000 atividades. Acesso imediato, 100% digital.";
+  "Ajude seu filho ou aluno a ler, compreender e interpretar textos com leveza. Método em 6 etapas, apostilas bônus e acesso imediato, 100% digital.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,25 +21,36 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [
+      {
+        rel: "preload",
+        href: "/images/metodo-leitura-em-blocos-kit-800.webp",
+        as: "image",
+        type: "image/webp",
+        fetchPriority: "high",
+      },
+    ],
   }),
   component: Index,
 });
 
 function Index() {
   return (
-    <main className="overflow-x-hidden pb-20">
-      <Hero />
-      <ActivityExamples />
-      <Problems />
-      <Method />
-      <Bonuses />
-      <Offer />
-      <Testimonials />
-      <Guarantee />
-      <Faq />
-      <FinalCta />
-      <Footer />
-      <StickyBar />
-    </main>
+    <CheckoutFlowProvider>
+      <main className="overflow-x-hidden pb-20">
+        <Hero />
+        <ActivityExamples />
+        <Problems />
+        <Method />
+        <Bonuses />
+        <Offer />
+        <Testimonials />
+        <Guarantee />
+        <Faq />
+        <FinalCta />
+        <Footer />
+        <StickyBar />
+      </main>
+    </CheckoutFlowProvider>
   );
 }

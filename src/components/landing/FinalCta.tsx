@@ -4,13 +4,14 @@ import { scrollToPlan } from "@/lib/scroll-to-plan";
 
 export function FinalCta() {
   return (
-    <section className="bg-hero-gradient px-4 py-14">
+    <section id="final-cta" className="bg-hero-gradient px-4 py-14">
       <div className="mx-auto max-w-md text-center">
         <h2 className="text-[1.7rem] leading-[1.15] font-extrabold sm:text-3xl">
-          Ajude seu filho a ler com confiança, de forma leve e sem frustrações
+          Ajude seu filho ou aluno a compreender o que lê, sem transformar o momento de aprender em
+          uma frustração.
         </h2>
-        <p className="mt-2.5 text-[15px] text-muted-foreground">
-          Comece hoje com o Método Leitura em Blocos™ e veja a diferença nas próximas semanas.
+        <p className="mt-3 text-base font-bold text-foreground">
+          Comece hoje por apenas <span className="text-xl text-cta">R$17,90</span>.
         </p>
 
         <div className="mt-6 flex flex-col gap-3">
@@ -22,8 +23,8 @@ export function FinalCta() {
             <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-primary">
               Kit Leitura em Blocos™
             </p>
-            <p className="text-xs text-muted-foreground line-through">R$97,90</p>
-            <p className="mt-1 text-3xl font-display">R$34,35</p>
+            <p className="text-xs text-muted-foreground line-through">R$67,90</p>
+            <p className="mt-1 text-3xl font-display">R$17,90</p>
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
               <Check className="h-3.5 w-3.5 text-primary" /> O essencial em 6 etapas
             </p>
@@ -36,19 +37,19 @@ export function FinalCta() {
             <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-primary">
               Kit Premium · Mais escolhido
             </p>
-            <p className="text-xs text-muted-foreground line-through">R$79,90</p>
-            <p className="mt-1 text-3xl font-display text-primary-gradient">R$43,90</p>
+            <p className="text-xs text-muted-foreground line-through">R$87,90</p>
+            <p className="mt-1 text-3xl font-display text-primary-gradient">R$37,90</p>
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
-              <Check className="h-3.5 w-3.5 text-primary" /> +1.000 atividades extras
+              <Check className="h-3.5 w-3.5 text-primary" /> Classes gramaticais e caligrafia
             </p>
           </button>
         </div>
 
         <a
           href="#oferta"
-          className="sheen-cta mt-6 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-6 py-4 text-base font-extrabold uppercase tracking-wide text-cta-foreground shadow-cta active:scale-[0.98]"
+          className="cta-single-line sheen-cta mt-6 flex w-full items-center justify-center rounded-2xl bg-cta-gradient px-2 py-4 font-extrabold uppercase text-cta-foreground shadow-cta active:scale-[0.98] sm:px-6"
         >
-          <span className="relative z-10">Quero começar agora</span>
+          <span className="relative z-10">Quero garantir meu kit agora</span>
         </a>
       </div>
     </section>
@@ -57,7 +58,7 @@ export function FinalCta() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border px-4 py-8 text-center">
+    <footer className="border-t border-border bg-surface-warm px-4 py-8 text-center">
       <p className="text-xs text-muted-foreground">
         © 2026 Método Leitura em Blocos™. Todos os direitos reservados.
       </p>
@@ -82,10 +83,35 @@ export function StickyBar() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 500);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    let frame: number | null = null;
+
+    const updateVisibility = () => {
+      const finalCta = document.getElementById("final-cta");
+      const beforeFinalCta = finalCta
+        ? finalCta.getBoundingClientRect().top > window.innerHeight
+        : true;
+
+      setShow(window.scrollY > 500 && beforeFinalCta);
+    };
+
+    const requestVisibilityUpdate = () => {
+      if (frame !== null) return;
+
+      frame = window.requestAnimationFrame(() => {
+        frame = null;
+        updateVisibility();
+      });
+    };
+
+    updateVisibility();
+    window.addEventListener("scroll", requestVisibilityUpdate, { passive: true });
+    window.addEventListener("resize", requestVisibilityUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestVisibilityUpdate);
+      window.removeEventListener("resize", requestVisibilityUpdate);
+      if (frame !== null) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
@@ -97,9 +123,9 @@ export function StickyBar() {
     >
       <a
         href="#oferta"
-        className="pulse-cta glow-cta mx-auto flex max-w-md items-center justify-center rounded-2xl bg-cta-gradient px-6 py-3.5 text-sm font-extrabold uppercase tracking-wide text-cta-foreground shadow-cta"
+        className="cta-single-line pulse-cta glow-cta mx-auto flex max-w-md items-center justify-center rounded-2xl bg-cta-gradient px-2 py-3.5 font-extrabold uppercase text-cta-foreground shadow-cta sm:px-6"
       >
-        Quero começar agora
+        Quero garantir meu kit agora
       </a>
     </div>
   );

