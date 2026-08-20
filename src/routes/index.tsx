@@ -6,9 +6,9 @@ import { Offer } from "@/components/landing/Offer";
 import { Testimonials, Guarantee, Faq } from "@/components/landing/Social";
 import { FinalCta, Footer, StickyBar } from "@/components/landing/FinalCta";
 
-const title = "Método Leitura em Blocos™ — Kit de Textos Fatiados para Crianças";
+const title = "Método Leitura em Blocos™: Kit de Textos em Blocos para Crianças";
 const description =
-  "Ajude seu filho ou aluno a ler, compreender e interpretar textos com leveza. Método em 6 etapas + mais de 2.000 atividades. Acesso imediato, 100% digital.";
+  "Ajude seu filho ou aluno a ler, compreender e interpretar textos com leveza. Método em 6 etapas, apostilas bônus e acesso imediato, 100% digital.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
