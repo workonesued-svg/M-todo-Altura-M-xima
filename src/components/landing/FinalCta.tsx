@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
-import { checkoutLinks } from "@/lib/checkout";
 import { scrollToPlan } from "@/lib/scroll-to-plan";
-import { trackInitiateCheckout } from "@/lib/tracking";
 
 export function FinalCta() {
   return (
@@ -32,10 +30,7 @@ export function FinalCta() {
             </p>
           </button>
           <a
-            href={checkoutLinks.premium}
-            onClick={trackInitiateCheckout}
-            suppressHydrationWarning
-            data-checkout="premium-final-card"
+            href="#oferta"
             className="card-lift w-full rounded-2xl border-2 border-primary bg-card p-4 text-left shadow-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
           >
             <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-primary">
