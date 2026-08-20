@@ -29,8 +29,9 @@ export function FinalCta() {
               <Check className="h-3.5 w-3.5 text-primary" /> O essencial em 6 etapas
             </p>
           </button>
-          <a
-            href="#oferta"
+          <button
+            type="button"
+            onClick={() => scrollToPlan("plan-premium")}
             className="card-lift w-full rounded-2xl border-2 border-primary bg-card p-4 text-left shadow-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
           >
             <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-primary">
@@ -41,7 +42,7 @@ export function FinalCta() {
             <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
               <Check className="h-3.5 w-3.5 text-primary" /> Classes gramaticais e caligrafia
             </p>
-          </a>
+          </button>
         </div>
 
         <a
